@@ -58,13 +58,16 @@ PODS:
     - gRPC-Core (= 1.8.0)
     - gRPC-RxLibrary (= 1.8.0)
   - GTMSessionFetcher/Core (1.1.12)
+  - Instantiate (2.2.0)
+  - InstantiateStandard (2.2.0):
+    - Instantiate (~> 2.2)
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Pring (0.3.3):
+  - Pring (0.3.6):
     - Firebase/Core
     - Firebase/Firestore
     - Firebase/Storage
@@ -73,6 +76,8 @@ PODS:
 
 DEPENDENCIES:
   - ChatView
+  - Instantiate
+  - InstantiateStandard
   - Pring
 
 SPEC CHECKSUMS:
@@ -90,12 +95,14 @@ SPEC CHECKSUMS:
   gRPC-ProtoRPC: 5b934b29a95b94b0f871d4fc361ff52269476765
   gRPC-RxLibrary: 7c57a1b2ff2f9cafb0face35bbfa0a326281295d
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  Instantiate: 9810ecb69b7d0c393e1938559a6f896587785b64
+  InstantiateStandard: 0bf32c19d3624822975e554f3706ca1e83c90ee5
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Pring: ff43f1e5949895bd1a7a849997bb0e3d89d3f352
+  Pring: 2fd3528cf32e1d4fdcfc30471b117daf501f8390
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   Toolbar: 30a12aa3679d1f6b2bd3054c40ae0a93ef80cbe4
 
-PODFILE CHECKSUM: a72e64de2c3a9465005097972a3938c45fc6ef81
+PODFILE CHECKSUM: 14d75109a3f10a2d1629917bcd259220e2b4760a
 
 COCOAPODS: 1.4.0.beta.2

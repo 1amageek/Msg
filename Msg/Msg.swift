@@ -10,28 +10,29 @@ import Foundation
 import FirebaseFirestore
 import Pring
 
-public typealias MsgUser = UserProtocol & Document
-public typealias MsgRoom = RoomProtocol & Document
-public typealias MsgTranscript = TranscriptProtocol & Document
+public typealias MsgUser = UserDocument & Document
+public typealias MsgRoom = RoomDocumet & Document
+public typealias MsgTranscript = TranscriptDocument & Document
 
-public typealias UserDocument = MsgUser & HasRooms
-public typealias RoomDocument = MsgRoom & HasTranscripts
+public typealias UserProtocol = MsgUser & HasRooms
+public typealias RoomProtocol = MsgRoom & HasTranscripts
+public typealias TranscriptProtocol = MsgTranscript & HasContent
 
 // MARK: User
 
-public protocol UserProtocol {
+public protocol UserDocument {
     var name: String? { get }
     var thumbnail: File? { get }
 }
 
 public protocol HasRooms {
-    associatedtype Room: RoomDocument
+    associatedtype Room: RoomProtocol
     var rooms: ReferenceCollection<Room> { get }
 }
 
 // MARK: Room
 
-public protocol RoomProtocol {
+public protocol RoomDocumet {
     var name: String? { get }
 }
 
@@ -42,7 +43,7 @@ public protocol HasTranscripts {
 
 // MARK: Transcript
 
-public protocol TranscriptProtocol {
+public protocol TranscriptDocument {
 
     associatedtype User: MsgUser
     associatedtype Room: MsgRoom

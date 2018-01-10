@@ -7,5 +7,18 @@ target 'Msg' do
 
   pod 'Pring'
   pod 'ChatView'
+  pod 'Instantiate'
+  pod 'InstantiateStandard'
+
+end
+
+target 'Sample' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  pod 'Pring'
+  pod 'ChatView'
+  pod 'Instantiate'
+  pod 'InstantiateStandard'
 
 end
