@@ -18,15 +18,15 @@ extension MsgViewController {
             let transcript: Transcript?
         }
 
-        public func inject(_ dependency: MsgViewController<Room, User, Transcript>.MsgViewCell.Dependency) {
+        public func inject(_ dependency: MsgViewController<User, Room, Transcript>.MsgViewCell.Dependency) {
 
             guard let transcript: Transcript = dependency.transcript else {
                 return
             }
-            
+
             if let text: String = transcript.text {
-                self.textView.isHidden = false
-                self.textView.textLabel.text = text
+                self.messageView.isHidden = false
+                self.messageView.textLabel.text = text
             }
 
         }
@@ -38,7 +38,9 @@ extension MsgViewController {
             return view
         }()
 
-        public var textView: TextView = TextView.instantiate()
+        public let messageView: MessageView = MessageView.instantiate()
+
+        public let imageView: ImageView = ImageView.instantiate()
 
         public override init(frame: CGRect) {
             super.init(frame: frame)
@@ -48,9 +50,8 @@ extension MsgViewController {
             self.contentView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 0)
             self.contentView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 0)
 
-            textView.isHidden = true
-
-            stackView.addArrangedSubview(textView)
+            messageView.isHidden = true
+            stackView.addArrangedSubview(messageView)
         }
 
         public required init?(coder aDecoder: NSCoder) {

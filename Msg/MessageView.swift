@@ -1,5 +1,5 @@
 //
-//  TextView.swift
+//  MessageView.swift
 //  Msg
 //
 //  Created by 1amageek on 2018/01/10.
@@ -10,6 +10,6 @@ import UIKit
 import Instantiate
 import InstantiateStandard
 
-public class TextView: UIView, NibInstantiatable {
+public class MessageView: UIView, NibInstantiatable {
     @IBOutlet weak var textLabel: UILabel!
 }

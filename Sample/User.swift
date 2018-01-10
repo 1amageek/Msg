@@ -8,14 +8,15 @@
 
 import Foundation
 import Pring
-import Msg
 
-class User: Object, UserDocument {
-    var name: String?
+@objcMembers
+class User: Object, UserProtocol {
 
-    var thumbnail: File?
+    typealias Room = Sample.Room
 
-    typealias Room = <#type#>
+    dynamic var name: String?
 
+    dynamic var thumbnail: File?
 
+    var rooms: ReferenceCollection<Room> = []
 }

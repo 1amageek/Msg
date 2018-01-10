@@ -8,14 +8,13 @@
 
 import Foundation
 import Pring
-import Msg
 
-class Room: Object, RoomDocument {
-    var name: String?
+@objcMembers
+class Room: Object, RoomProtocol {
 
-    var thumbnail: File?
+    typealias Transcript = Sample.Transcript
 
-    typealias Room = <#type#>
+    var transcripts: NestedCollection<Transcript> = []
 
-
+    dynamic var name: String?
 }

@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Msg
+import Firebase
+import FirebaseFirestore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,14 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        NSSetUncaughtExceptionHandler { exception in
+            debugPrint(exception.name)
+            debugPrint(exception.reason ?? "")
+            debugPrint(exception.callStackSymbols)
+        }
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = MsgViewController()
-
+        FirebaseApp.configure()
         return true
     }
-
-
-
 }
 

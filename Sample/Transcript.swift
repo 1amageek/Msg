@@ -7,3 +7,31 @@
 //
 
 import Foundation
+import Pring
+import FirebaseFirestore
+
+@objcMembers
+class Transcript: Object, TranscriptProtocol {
+
+    typealias User = Sample.User
+
+    typealias Room = Sample.Room
+
+    var user: Reference<User> = .init()
+
+    var room: Reference<Room>  = .init()
+
+    dynamic var text: String?
+
+    dynamic var image: File?
+
+    dynamic var video: File?
+
+    dynamic var audio: File?
+
+    dynamic var location: GeoPoint?
+
+    dynamic var sticker: String?
+
+    dynamic var imageMap: [File] = []
+}
