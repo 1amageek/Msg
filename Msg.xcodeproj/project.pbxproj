@@ -7,30 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		123B3F54200B64440092CF3E /* Msg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124086732005A56400F67E31 /* Msg.swift */; };
+		123B3F5C200B645A0092CF3E /* Msg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124086732005A56400F67E31 /* Msg.swift */; };
+		123B3F67200B663E0092CF3E /* MsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512402005AD0100B80313 /* MsgViewController.swift */; };
+		123B3F68200B677F0092CF3E /* MsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512402005AD0100B80313 /* MsgViewController.swift */; };
+		123B3F69200B69630092CF3E /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127320062D5100B80313 /* ImageView.swift */; };
+		123B3F6A200B69630092CF3E /* ImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D5127620062D7100B80313 /* ImageView.xib */; };
+		123B3F6B200B69630092CF3E /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127F20062ED700B80313 /* MessageView.swift */; };
+		123B3F6C200B69630092CF3E /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D5128220062EE500B80313 /* MessageView.xib */; };
+		123B3F6D200B69650092CF3E /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127320062D5100B80313 /* ImageView.swift */; };
+		123B3F6E200B69650092CF3E /* ImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D5127620062D7100B80313 /* ImageView.xib */; };
+		123B3F6F200B69650092CF3E /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127F20062ED700B80313 /* MessageView.swift */; };
+		123B3F70200B69650092CF3E /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D5128220062EE500B80313 /* MessageView.xib */; };
 		1240866D2005A55A00F67E31 /* Msg.h in Headers */ = {isa = PBXBuildFile; fileRef = 1240866B2005A55A00F67E31 /* Msg.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		124086742005A56400F67E31 /* Msg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124086732005A56400F67E31 /* Msg.swift */; };
-		12D512412005AD0100B80313 /* MsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512402005AD0100B80313 /* MsgViewController.swift */; };
+		12CF86BF200B6B6D0068BF70 /* MsgViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512462005C63B00B80313 /* MsgViewCell.swift */; };
+		12CF86C0200B6B6E0068BF70 /* MsgViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512462005C63B00B80313 /* MsgViewCell.swift */; };
 		12D512532005DE9F00B80313 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512522005DE9F00B80313 /* AppDelegate.swift */; };
 		12D5125A2005DE9F00B80313 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12D512592005DE9F00B80313 /* Assets.xcassets */; };
 		12D5125D2005DE9F00B80313 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12D5125B2005DE9F00B80313 /* LaunchScreen.storyboard */; };
 		12D512642005DFCB00B80313 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512632005DFCB00B80313 /* User.swift */; };
 		12D512662005DFD300B80313 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512652005DFD300B80313 /* Room.swift */; };
 		12D512682005DFE100B80313 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512672005DFE100B80313 /* Transcript.swift */; };
-		12D512692005EB4400B80313 /* Msg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124086732005A56400F67E31 /* Msg.swift */; };
-		12D5126A2005ED2500B80313 /* MsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512402005AD0100B80313 /* MsgViewController.swift */; };
 		12D5126E2005EDAB00B80313 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12D5126D2005EDAB00B80313 /* Main.storyboard */; };
 		12D512702005EDC500B80313 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5126F2005EDC500B80313 /* ViewController.swift */; };
 		12D512722005EE7100B80313 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12D512712005EE7100B80313 /* GoogleService-Info.plist */; };
-		12D5127420062D5100B80313 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127320062D5100B80313 /* ImageView.swift */; };
-		12D5127520062D5100B80313 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127320062D5100B80313 /* ImageView.swift */; };
-		12D5127720062D7100B80313 /* ImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D5127620062D7100B80313 /* ImageView.xib */; };
-		12D5127820062D7100B80313 /* ImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D5127620062D7100B80313 /* ImageView.xib */; };
-		12D5128020062ED700B80313 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127F20062ED700B80313 /* MessageView.swift */; };
-		12D5128120062ED700B80313 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127F20062ED700B80313 /* MessageView.swift */; };
-		12D5128320062EE500B80313 /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D5128220062EE500B80313 /* MessageView.xib */; };
-		12D5128420062EE500B80313 /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D5128220062EE500B80313 /* MessageView.xib */; };
-		12D51294200643BC00B80313 /* MsgViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512462005C63B00B80313 /* MsgViewCell.swift */; };
-		12D51295200643BD00B80313 /* MsgViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512462005C63B00B80313 /* MsgViewCell.swift */; };
 		A0349F4251BD18EC3D4AC860 /* Pods_Sample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5460EE8D56204C7F0EFDB5B5 /* Pods_Sample.framework */; };
 		D5CFF153492740F4776D98C4 /* Pods_Msg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A78F1CAAFF849C4B4EA0D4 /* Pods_Msg.framework */; };
 /* End PBXBuildFile section */
@@ -257,8 +257,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12D5128320062EE500B80313 /* MessageView.xib in Resources */,
-				12D5127720062D7100B80313 /* ImageView.xib in Resources */,
+				123B3F6C200B69630092CF3E /* MessageView.xib in Resources */,
+				123B3F6A200B69630092CF3E /* ImageView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,9 +266,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12D5128420062EE500B80313 /* MessageView.xib in Resources */,
+				123B3F70200B69650092CF3E /* MessageView.xib in Resources */,
 				12D5126E2005EDAB00B80313 /* Main.storyboard in Resources */,
-				12D5127820062D7100B80313 /* ImageView.xib in Resources */,
+				123B3F6E200B69650092CF3E /* ImageView.xib in Resources */,
 				12D512722005EE7100B80313 /* GoogleService-Info.plist in Resources */,
 				12D5125D2005DE9F00B80313 /* LaunchScreen.storyboard in Resources */,
 				12D5125A2005DE9F00B80313 /* Assets.xcassets in Resources */,
@@ -337,13 +337,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
-				"${BUILT_PRODUCTS_DIR}/ChatView/ChatView.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Instantiate/Instantiate.framework",
 				"${BUILT_PRODUCTS_DIR}/InstantiateStandard/InstantiateStandard.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/Toolbar/Toolbar.framework",
+				"${BUILT_PRODUCTS_DIR}/Typist/Typist.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -354,13 +354,13 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChatView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instantiate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InstantiateStandard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toolbar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typist.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -395,11 +395,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12D5127420062D5100B80313 /* ImageView.swift in Sources */,
-				12D512412005AD0100B80313 /* MsgViewController.swift in Sources */,
-				124086742005A56400F67E31 /* Msg.swift in Sources */,
-				12D5128020062ED700B80313 /* MessageView.swift in Sources */,
-				12D51294200643BC00B80313 /* MsgViewCell.swift in Sources */,
+				123B3F6B200B69630092CF3E /* MessageView.swift in Sources */,
+				123B3F69200B69630092CF3E /* ImageView.swift in Sources */,
+				123B3F67200B663E0092CF3E /* MsgViewController.swift in Sources */,
+				123B3F54200B64440092CF3E /* Msg.swift in Sources */,
+				12CF86BF200B6B6D0068BF70 /* MsgViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,16 +407,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12D5127520062D5100B80313 /* ImageView.swift in Sources */,
-				12D5126A2005ED2500B80313 /* MsgViewController.swift in Sources */,
+				123B3F6D200B69650092CF3E /* ImageView.swift in Sources */,
+				123B3F5C200B645A0092CF3E /* Msg.swift in Sources */,
+				123B3F68200B677F0092CF3E /* MsgViewController.swift in Sources */,
+				123B3F6F200B69650092CF3E /* MessageView.swift in Sources */,
+				12CF86C0200B6B6E0068BF70 /* MsgViewCell.swift in Sources */,
 				12D512642005DFCB00B80313 /* User.swift in Sources */,
 				12D512702005EDC500B80313 /* ViewController.swift in Sources */,
-				12D51295200643BD00B80313 /* MsgViewCell.swift in Sources */,
-				12D5128120062ED700B80313 /* MessageView.swift in Sources */,
 				12D512682005DFE100B80313 /* Transcript.swift in Sources */,
 				12D512532005DE9F00B80313 /* AppDelegate.swift in Sources */,
 				12D512662005DFD300B80313 /* Room.swift in Sources */,
-				12D512692005EB4400B80313 /* Msg.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

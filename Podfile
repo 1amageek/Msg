@@ -6,7 +6,8 @@ target 'Msg' do
   use_frameworks!
 
   pod 'Pring'
-  pod 'ChatView'
+  pod 'Typist'
+  pod 'Toolbar'
   pod 'Instantiate'
   pod 'InstantiateStandard'
 
@@ -17,8 +18,10 @@ target 'Sample' do
   use_frameworks!
 
   pod 'Pring'
-  pod 'ChatView'
+  pod 'Typist'
+  pod 'Toolbar'
   pod 'Instantiate'
   pod 'InstantiateStandard'
+  pod 'Toolbar'
 
 end

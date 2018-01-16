@@ -12,7 +12,6 @@ import Pring
 
 public typealias MsgUser = UserType & Document
 public typealias MsgRoom = RoomType & Document
-public typealias MsgTranscript = TranscriptType & HasContent & Document
 
 public typealias UserProtocol = UserType & HasRooms
 public typealias RoomProtocol = RoomType & HasTranscripts
@@ -32,7 +31,7 @@ public protocol UserType {
 
 public protocol HasRooms {
     associatedtype Room: MsgRoom
-    var rooms: ReferenceCollection<Room> { get }
+    var rooms: SubCollection<Room> { get }
 }
 
 // MARK: Room
@@ -42,8 +41,8 @@ public protocol RoomType {
 }
 
 public protocol HasTranscripts {
-    associatedtype Transcript: MsgTranscript
-    var transcripts: NestedCollection<Transcript> { get }
+    associatedtype Transcript: TranscriptDocument
+    var transcripts: SubCollection<Transcript> { get }
 }
 
 // MARK: Transcript

@@ -22,14 +22,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonAction(_ sender: Any) {
-        let user: User = User()
-        let room: Room = Room()
-        user.rooms.insert(room)
-        user.save { (ref, error) in
-            Room.get(room.id, block: { (aRoom, error) in
-                let viewController: MsgViewController<User, Room, Transcript> = MsgViewController(room: aRoom!, user: user)
-                self.present(viewController, animated: true, completion: nil)
-            })
-        }
+//        let viewController = MsgViewController()
+//        let navigationController = UINavigationController(rootViewController: viewController)
+//        self.present(navigationController, animated: true, completion: nil)
+
+//        let user: User = User()
+//        let room: Room = Room()
+//        user.rooms.insert(room)
+//        user.save { (ref, error) in
+//            Room.get(room.id, block: { (aRoom, error) in
+//                let viewController: MsgViewController<User, Room, Transcript> = MsgViewController(room: aRoom!, user: user)
+//                self.present(viewController, animated: true, completion: nil)
+//            })
+//        }
     }
 }

@@ -5,8 +5,6 @@ PODS:
   - BoringSSL/Implementation (9.1):
     - BoringSSL/Interface (= 9.1)
   - BoringSSL/Interface (9.1)
-  - ChatView (0.0.3):
-    - Toolbar
   - Firebase/Core (4.8.0):
     - FirebaseAnalytics (= 4.0.5)
     - FirebaseCore (= 4.0.13)
@@ -67,22 +65,23 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Pring (0.3.9):
+  - Pring (0.3.14):
     - Firebase/Core
     - Firebase/Firestore
     - Firebase/Storage
   - Protobuf (3.5.0)
-  - Toolbar (0.0.6)
+  - Toolbar (0.0.8)
+  - Typist (1.2.0)
 
 DEPENDENCIES:
-  - ChatView
   - Instantiate
   - InstantiateStandard
   - Pring
+  - Toolbar
+  - Typist
 
 SPEC CHECKSUMS:
   BoringSSL: 84318770d120503ab1a6aaf1df777c5ca053697e
-  ChatView: b12b7ae8f0e5908a774074d9534c0915de36c5cc
   Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
   FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
@@ -99,10 +98,11 @@ SPEC CHECKSUMS:
   InstantiateStandard: 0bf32c19d3624822975e554f3706ca1e83c90ee5
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Pring: d542f6390af9f0427c130672b070fe9610f9fbe5
+  Pring: 813674fc7ef1cea5ea53d0a64624ceaa1a60ed80
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
-  Toolbar: 30a12aa3679d1f6b2bd3054c40ae0a93ef80cbe4
+  Toolbar: a7e809c983b84a8dd1108d2e63c191212748000b
+  Typist: 96879e93f3b3f5e29b45fb2bfb45fdedabd6a79e
 
-PODFILE CHECKSUM: 14d75109a3f10a2d1629917bcd259220e2b4760a
+PODFILE CHECKSUM: d5021a2ef40c80756e0aa6cdd21356eb8c3c5c14
 
 COCOAPODS: 1.4.0.beta.2

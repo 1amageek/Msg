@@ -24,6 +24,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         FirebaseApp.configure()
+        let settings: FirestoreSettings = FirestoreSettings()
+        settings.isPersistenceEnabled = true
+        Firestore.firestore().settings = settings
+
+        let user: User = User(id: "B25fLWWUY5XdU9Ir9rYl")
+        let room: Room = Room(id: "G5WZK9Ek3vIcwDey0yXP")
+//        user.rooms.insert(room)
+//        user.save()
+
+        let viewController: MsgViewController<User, Room, Transcript> = MsgViewController(room: room, user: user)
+//        let viewController: MsgViewController = MsgViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
+
         return true
     }
 }

@@ -14,7 +14,7 @@ class Room: Object, RoomProtocol {
 
     typealias Transcript = Sample.Transcript
 
-    var transcripts: NestedCollection<Transcript> = []
+    var transcripts: SubCollection<Transcript> = []
 
     dynamic var name: String?
 }

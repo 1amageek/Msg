@@ -18,5 +18,5 @@ class User: Object, UserProtocol {
 
     dynamic var thumbnail: File?
 
-    var rooms: ReferenceCollection<Room> = []
+    var rooms: SubCollection<Room> = []
 }
