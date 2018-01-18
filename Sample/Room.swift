@@ -8,9 +8,11 @@
 
 import Foundation
 import Pring
+import FirebaseFirestore
+import MsgBox
 
 @objcMembers
-class Room: Object, RoomProtocol {
+class Room: Pring.Object, RoomProtocol {
 
     typealias Transcript = Sample.Transcript
 

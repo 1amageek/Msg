@@ -11,19 +11,22 @@ import Pring
 import Toolbar
 import Instantiate
 import InstantiateStandard
-import Typist
+import OnTheKeyboard
+import MsgBox
+import RealmSwift
 
-class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript: TranscriptDocument>: UIViewController, UITableViewDelegate, UITableViewDataSource, OnTheKeyboard, UITextViewDelegate {
+class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Message: MessageProtocol>: UIViewController, UITableViewDelegate, UITableViewDataSource, OnTheKeyboard, UITextViewDelegate where Message: RealmSwift.Object, Message.Transcript == Transcript {
 
-    var room: Room
+    let roomID: String
 
-    var user: User
+    let userID: String
 
-    var dataSource: DataSource<Transcript>?
+    let sessionController: MsgBox<User, Room, Transcript, Message>.SessionController
 
-    init(room: Room, user: User) {
-        self.room = room
-        self.user = user
+    init(roomID: String, userID: String) {
+        self.roomID = roomID
+        self.userID = userID
+        self.sessionController = MsgBox.SessionController(roomID: roomID)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -36,8 +39,6 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript: Tran
     var toolBar: Toolbar = Toolbar()
 
     var toolbarBottomConstraint: NSLayoutConstraint?
-
-    let keyboard = Typist.shared
 
     private(set) lazy var tableView: UITableView = {
         let view: UITableView = UITableView(frame: self.view.bounds, style: .plain)
@@ -74,69 +75,15 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript: Tran
         removeKeyboardObservers()
     }
 
+    func keyboardWillLayout(_ frame: CGRect) {
+        let height: CGFloat = self.toolBar.bounds.height + frame.height
+        self.tableView.contentInset.bottom = height
+        self.tableView.scrollIndicatorInsets.bottom = height
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // keyboard input accessory view support
-        textView.inputAccessoryView = UIView(frame: toolbar.bounds)
-
-        // keyboard frame observer
-        keyboard
-            .toolbar(scrollView: tableView)
-            .on(event: .willChangeFrame) { [unowned self] options in
-                let height = options.endFrame.height
-                UIView.animate(withDuration: 0) {
-                    self.bottom.constant = max(0, height - self.toolbar.bounds.height)
-                    self.tableView.contentInset.bottom = max(self.toolbar.bounds.height, height)
-                    self.tableView.scrollIndicatorInsets.bottom = max(self.toolbar.bounds.height, height)
-                    self.toolbar.layoutIfNeeded()
-                }
-                self.navigationItem.prompt = options.endFrame.debugDescription
-            }
-            .on(event: .willHide) { [unowned self] options in
-                // .willHide is used in cases when keyboard is *not* dismiss interactively.
-                // e.g. when `.resignFirstResponder()` is called on textField.
-                UIView.animate(withDuration: options.animationDuration, delay: 0, options: UIViewAnimationOptions(curve: options.animationCurve), animations: {
-                    self.bottom.constant = 0
-                    self.tableView.contentInset.bottom = self.toolbar.bounds.height
-                    self.tableView.scrollIndicatorInsets.bottom = self.toolbar.bounds.height
-                    self.toolbar.layoutIfNeeded()
-                }, completion: nil)
-            }
-            .start()
-
-        let query = DataSource<Transcript>.Query(self.room.transcripts.reference)
-        self.dataSource = query
-            .order(by: "createdAt")
-            .dataSource()
-            .on({ [weak self](snapshot, change) in
-
-                guard let tableView: UITableView = self?.tableView else { return }
-                tableView.layoutIfNeeded()
-                tableView.reloadData()
-//                switch change {
-//                case .initial: tableView.reloadData()
-//                    print("init")
-//                case .update(deletions: let deletions, insertions: let insertions, modifications: let modifications):
-//                    tableView.performBatchUpdates({
-//                        tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-//                        tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-//                        tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-//                    }, completion: { _ in
-//
-//                    })
-//                    if snapshot?.metadata.hasPendingWrites ?? false {
-//                        if let count: Int = self?.dataSource?.count {
-//                            let indexPath: IndexPath = IndexPath(row: count - 1, section: 0)
-//                            tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
-//                        }
-//                    }
-//                case .error(let error): print(error)
-//                }
-            }).onCompleted({  (_, _) in
-//                self?.collectionView.reloadData()
-            }).listen()
-
+        self.sessionController.listen()
     }
 
 
@@ -152,6 +99,7 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript: Tran
     private(set) lazy var textView: UITextView = {
         let textView: UITextView = UITextView(frame: .zero)
         textView.delegate = self
+        textView.font = UIFont.systemFont(ofSize: 16)
         return textView
     }()
 
@@ -164,14 +112,15 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript: Tran
         self.sendBarItem.isEnabled = true
         self.textView.text = ""
         var transcript: Transcript = Transcript()
+        let room: Room = Room(id: self.roomID)
         transcript.text = text
-        transcript.room.set((self.room as! Transcript.Room))
-        transcript.user.set((self.user as! Transcript.User))
+        transcript.room.set(room as! Transcript.Room)
+        transcript.user.set((User(id: self.userID) as! Transcript.User))
         if let constraint: NSLayoutConstraint = self.constraint {
             textView.removeConstraint(constraint)
         }
         self.toolBar.setNeedsLayout()
-        self.room.transcripts.insert(transcript as! Room.Transcript, block: { error in
+        room.transcripts.insert(transcript as! Room.Transcript, block: { error in
             print(error)
         })
     }
@@ -179,15 +128,45 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript: Tran
     // MARK:
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource?.count ?? 0
+        return self.dataSource.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let transcript: Transcript? = self.dataSource?[indexPath.item]
-        if transcript?.user.id == self.user.id {
-            return MsgRightViewCell.dequeue(from: tableView, for: indexPath, with: .init(transcript: transcript))
+        let message: Message = self.dataSource[indexPath.item]
+        if message.userID == self.userID {
+            return MsgRightViewCell.dequeue(from: tableView, for: indexPath, with: .init(message: message))
         }
-        return MsgLeftViewCell.dequeue(from: tableView, for: indexPath, with: .init(transcript: transcript))
+        return MsgLeftViewCell.dequeue(from: tableView, for: indexPath, with: .init(message: message))
+    }
+
+    // MARK: - Realm
+
+    let realm = try! Realm()
+
+    private(set) var notificationToken: NotificationToken?
+
+    private(set) lazy var dataSource: Results<Message> = {
+        var results: Results<Message> = self.realm.objects(Message.self)
+            .filter("roomID == %@", self.roomID)
+            .sorted(byKeyPath: "updatedAt")
+        self.notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial: tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.performBatchUpdates({
+                    tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                    tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                    tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                }, completion: nil)
+            case .error(let error): fatalError("\(error)")
+            }
+        }
+        return results
+    }()
+
+    deinit {
+        self.notificationToken?.invalidate()
     }
 
     // MARK:

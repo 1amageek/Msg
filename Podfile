@@ -6,8 +6,9 @@ target 'Msg' do
   use_frameworks!
 
   pod 'Pring'
-  pod 'Typist'
-  pod 'Toolbar'
+  pod 'OnTheKeyboard'
+  pod 'RealmSwift'
+  pod 'MsgBox'
   pod 'Instantiate'
   pod 'InstantiateStandard'
 
@@ -18,10 +19,10 @@ target 'Sample' do
   use_frameworks!
 
   pod 'Pring'
-  pod 'Typist'
-  pod 'Toolbar'
+  pod 'OnTheKeyboard'
+  pod 'RealmSwift'
+  pod 'MsgBox'
   pod 'Instantiate'
   pod 'InstantiateStandard'
-  pod 'Toolbar'
 
 end
