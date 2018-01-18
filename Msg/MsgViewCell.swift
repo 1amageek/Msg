@@ -33,6 +33,8 @@ extension MsgViewController {
             return view
         }()
 
+        public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 2, left: 32, bottom: 2, right: 24)
+
         public lazy var widthConstraint: NSLayoutConstraint = {
             return self.contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         }()
@@ -42,19 +44,19 @@ extension MsgViewController {
         }()
 
         public lazy var topConstraint: NSLayoutConstraint = {
-            return self.contentView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 0)
+            return self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
         }()
 
         public lazy var bottomConstraint: NSLayoutConstraint = {
-            return self.contentView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0)
+            return self.stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
         }()
 
         public lazy var leadingConstraint: NSLayoutConstraint = {
-            return self.contentView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 0)
+            return self.stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: self.contentInset.left)
         }()
 
         public lazy var trailingConstraint: NSLayoutConstraint = {
-            return self.contentView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 0)
+            return self.contentView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: self.contentInset.right)
         }()
 
 
@@ -96,7 +98,7 @@ extension MsgViewController {
 
         public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            self.leadingConstraint.constant = -24
+            self.leadingConstraint.isActive = true
             self.trailingConstraint.isActive = false
             self.stackView.widthAnchor.constraint(lessThanOrEqualTo: self.contentView.widthAnchor, multiplier: 0.8).isActive = true
         }
@@ -110,8 +112,8 @@ extension MsgViewController {
 
         public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            self.trailingConstraint.constant = 32
             self.leadingConstraint.isActive = false
+            self.trailingConstraint.isActive = true
             self.stackView.widthAnchor.constraint(lessThanOrEqualTo: self.contentView.widthAnchor, multiplier: 0.8).isActive = true
 //            self.stackView.widthAnchor.constraint(lessThanOrEqualTo: self.contentView.widthAnchor, multiplier: 0.8).isActive = true
         }

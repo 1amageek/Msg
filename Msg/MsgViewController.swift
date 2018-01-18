@@ -48,14 +48,15 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
         view.register(type: MsgLeftViewCell.self)
         view.register(type: MsgRightViewCell.self)
         view.keyboardDismissMode = .interactive
-        view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: Toolbar.defaultHeight, right: 0)
         return view
     }()
 
-    private func _layoutTableView() {
-        var contentInset: UIEdgeInsets = tableView.contentInset
-        contentInset.bottom = self.toolbarBottomConstraint?.constant ?? Toolbar.defaultHeight
-        tableView.contentInset = contentInset
+    private func _layoutTableView(_ frame: CGRect = .zero, isHidden: Bool) {
+        let keyboardHeight: CGFloat = isHidden ? 0 : frame.height
+        let toolbarHeight: CGFloat = isHidden ? self.toolBar.bounds.height : (self.toolBar.bounds.height - self.view.safeAreaInsets.bottom)
+        let height: CGFloat = toolbarHeight + keyboardHeight - self.view.safeAreaInsets.bottom
+        self.tableView.contentInset.bottom = height
+        self.tableView.scrollIndicatorInsets.bottom = height
     }
 
     override func loadView() {
@@ -63,6 +64,8 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
         self.view.addSubview(tableView)
         showToolBar(view)
         self.toolBar.setItems([ToolbarItem(customView: self.textView), self.sendBarItem], animated: false)
+        self.toolBar.layoutIfNeeded()
+        _layoutTableView(isHidden: true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -75,17 +78,14 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
         removeKeyboardObservers()
     }
 
-    func keyboardWillLayout(_ frame: CGRect) {
-        let height: CGFloat = self.toolBar.bounds.height + frame.height
-        self.tableView.contentInset.bottom = height
-        self.tableView.scrollIndicatorInsets.bottom = height
+    func keyboardWillLayout(_ frame: CGRect, isHidden: Bool) {
+        _layoutTableView(frame, isHidden: isHidden)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sessionController.listen()
     }
-
 
     // MARK: -
 

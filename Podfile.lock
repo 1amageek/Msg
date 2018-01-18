@@ -60,7 +60,7 @@ PODS:
   - InstantiateStandard (2.2.0):
     - Instantiate (~> 2.2)
   - leveldb-library (1.20)
-  - MsgBox (0.0.3):
+  - MsgBox (0.0.4):
     - Firebase/Core
     - Firebase/Firestore
     - Pring
@@ -70,7 +70,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - OnTheKeyboard (0.0.3):
+  - OnTheKeyboard (0.0.5):
     - Toolbar
   - Pring (0.3.15):
     - Firebase/Core
@@ -82,7 +82,7 @@ PODS:
   - Realm/Headers (3.1.0)
   - RealmSwift (3.1.0):
     - Realm (= 3.1.0)
-  - Toolbar (0.0.8)
+  - Toolbar (0.1)
 
 DEPENDENCIES:
   - Instantiate
@@ -109,14 +109,14 @@ SPEC CHECKSUMS:
   Instantiate: 9810ecb69b7d0c393e1938559a6f896587785b64
   InstantiateStandard: 0bf32c19d3624822975e554f3706ca1e83c90ee5
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
-  MsgBox: 4c9d38c23bb0dc550b1dd1bd2499f19c328a124f
+  MsgBox: 7a578a365d887bdd3083737566efb0f7f318daae
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  OnTheKeyboard: e83dbbf188725a6121a29c3225528a9261d4483c
+  OnTheKeyboard: 0a62a0961242eadb78a82cfce05b665796c58091
   Pring: e5a0975f47ca1143dcba7cfe977c3d9a747b2f68
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   Realm: 09513d7c054678d65cd02ce09871f805b0d758ac
   RealmSwift: e868fee9b10e5490ad94b6b6ecd9027944da1824
-  Toolbar: a7e809c983b84a8dd1108d2e63c191212748000b
+  Toolbar: 3c010be131fca3c88640f5e6cf34ba5626df3506
 
 PODFILE CHECKSUM: a533c81a52ccdc91851cdf777254398cba09e629
 
