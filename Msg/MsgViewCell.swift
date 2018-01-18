@@ -10,12 +10,20 @@ import UIKit
 import Pring
 import Instantiate
 import InstantiateStandard
+import RealmSwift
 
 extension MsgViewController {
     public class MsgViewCell: UITableViewCell, Reusable {
 
         struct Dependency {
-            let transcript: Transcript?
+            let message: Message
+        }
+
+        public func inject(_ dependency: MsgViewController<User, Room, Transcript, Message>.MsgViewCell.Dependency) {
+            if let text: String = dependency.message.text {
+                self.messageView.isHidden = false
+                self.messageView.textLabel.text = text
+            }
         }
 
         public private(set) lazy var stackView: UIStackView = {
@@ -49,20 +57,6 @@ extension MsgViewController {
             return self.contentView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 0)
         }()
 
-        public func inject(_ dependency: MsgViewController<User, Room, Transcript>.MsgViewCell.Dependency) {
-            guard let transcript: Transcript = dependency.transcript else {
-                return
-            }
-
-            //            if let image: File = transcript.image {
-            //
-            //            }
-
-            if let text: String = transcript.text {
-                self.messageView.isHidden = false
-                self.messageView.textLabel.text = text
-            }
-        }
 
         public let pictureView: ImageView = ImageView.instantiate()
 

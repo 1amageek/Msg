@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		123B3F54200B64440092CF3E /* Msg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124086732005A56400F67E31 /* Msg.swift */; };
-		123B3F5C200B645A0092CF3E /* Msg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124086732005A56400F67E31 /* Msg.swift */; };
+		1222F4D7200F3E2A00E137D3 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222F4D3200F3E2900E137D3 /* Room.swift */; };
+		1222F4D8200F3E2A00E137D3 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222F4D4200F3E2900E137D3 /* Transcript.swift */; };
+		1222F4D9200F3E2A00E137D3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222F4D5200F3E2900E137D3 /* Message.swift */; };
+		1222F4DA200F3E2A00E137D3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222F4D6200F3E2A00E137D3 /* User.swift */; };
 		123B3F67200B663E0092CF3E /* MsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512402005AD0100B80313 /* MsgViewController.swift */; };
 		123B3F68200B677F0092CF3E /* MsgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512402005AD0100B80313 /* MsgViewController.swift */; };
 		123B3F69200B69630092CF3E /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5127320062D5100B80313 /* ImageView.swift */; };
@@ -25,9 +27,6 @@
 		12D512532005DE9F00B80313 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512522005DE9F00B80313 /* AppDelegate.swift */; };
 		12D5125A2005DE9F00B80313 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12D512592005DE9F00B80313 /* Assets.xcassets */; };
 		12D5125D2005DE9F00B80313 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12D5125B2005DE9F00B80313 /* LaunchScreen.storyboard */; };
-		12D512642005DFCB00B80313 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512632005DFCB00B80313 /* User.swift */; };
-		12D512662005DFD300B80313 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512652005DFD300B80313 /* Room.swift */; };
-		12D512682005DFE100B80313 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D512672005DFE100B80313 /* Transcript.swift */; };
 		12D5126E2005EDAB00B80313 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12D5126D2005EDAB00B80313 /* Main.storyboard */; };
 		12D512702005EDC500B80313 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5126F2005EDC500B80313 /* ViewController.swift */; };
 		12D512722005EE7100B80313 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12D512712005EE7100B80313 /* GoogleService-Info.plist */; };
@@ -36,6 +35,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1222F4D3200F3E2900E137D3 /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		1222F4D4200F3E2900E137D3 /* Transcript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
+		1222F4D5200F3E2900E137D3 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		1222F4D6200F3E2A00E137D3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		124086682005A55A00F67E31 /* Msg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Msg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1240866B2005A55A00F67E31 /* Msg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Msg.h; sourceTree = "<group>"; };
 		1240866C2005A55A00F67E31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,9 +50,6 @@
 		12D512592005DE9F00B80313 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12D5125C2005DE9F00B80313 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12D5125E2005DE9F00B80313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		12D512632005DFCB00B80313 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		12D512652005DFD300B80313 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
-		12D512672005DFE100B80313 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		12D5126D2005EDAB00B80313 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		12D5126F2005EDC500B80313 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		12D512712005EE7100B80313 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -125,11 +125,12 @@
 			isa = PBXGroup;
 			children = (
 				12D512712005EE7100B80313 /* GoogleService-Info.plist */,
+				1222F4D5200F3E2900E137D3 /* Message.swift */,
+				1222F4D3200F3E2900E137D3 /* Room.swift */,
+				1222F4D4200F3E2900E137D3 /* Transcript.swift */,
+				1222F4D6200F3E2A00E137D3 /* User.swift */,
 				12D512522005DE9F00B80313 /* AppDelegate.swift */,
 				12D5126F2005EDC500B80313 /* ViewController.swift */,
-				12D512632005DFCB00B80313 /* User.swift */,
-				12D512652005DFD300B80313 /* Room.swift */,
-				12D512672005DFE100B80313 /* Transcript.swift */,
 				12D512592005DE9F00B80313 /* Assets.xcassets */,
 				12D5125B2005DE9F00B80313 /* LaunchScreen.storyboard */,
 				12D5126D2005EDAB00B80313 /* Main.storyboard */,
@@ -341,9 +342,11 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Instantiate/Instantiate.framework",
 				"${BUILT_PRODUCTS_DIR}/InstantiateStandard/InstantiateStandard.framework",
+				"${BUILT_PRODUCTS_DIR}/OnTheKeyboard/OnTheKeyboard.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Toolbar/Toolbar.framework",
-				"${BUILT_PRODUCTS_DIR}/Typist/Typist.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -358,9 +361,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instantiate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InstantiateStandard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OnTheKeyboard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toolbar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typist.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -398,7 +403,6 @@
 				123B3F6B200B69630092CF3E /* MessageView.swift in Sources */,
 				123B3F69200B69630092CF3E /* ImageView.swift in Sources */,
 				123B3F67200B663E0092CF3E /* MsgViewController.swift in Sources */,
-				123B3F54200B64440092CF3E /* Msg.swift in Sources */,
 				12CF86BF200B6B6D0068BF70 /* MsgViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,15 +412,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				123B3F6D200B69650092CF3E /* ImageView.swift in Sources */,
-				123B3F5C200B645A0092CF3E /* Msg.swift in Sources */,
 				123B3F68200B677F0092CF3E /* MsgViewController.swift in Sources */,
+				1222F4D7200F3E2A00E137D3 /* Room.swift in Sources */,
+				1222F4D9200F3E2A00E137D3 /* Message.swift in Sources */,
 				123B3F6F200B69650092CF3E /* MessageView.swift in Sources */,
 				12CF86C0200B6B6E0068BF70 /* MsgViewCell.swift in Sources */,
-				12D512642005DFCB00B80313 /* User.swift in Sources */,
+				1222F4D8200F3E2A00E137D3 /* Transcript.swift in Sources */,
 				12D512702005EDC500B80313 /* ViewController.swift in Sources */,
-				12D512682005DFE100B80313 /* Transcript.swift in Sources */,
+				1222F4DA200F3E2A00E137D3 /* User.swift in Sources */,
 				12D512532005DE9F00B80313 /* AppDelegate.swift in Sources */,
-				12D512662005DFD300B80313 /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
