@@ -133,17 +133,34 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
 
         self.sendBarItem.isEnabled = true
         self.textView.text = ""
+        self.send(text: text) { _ in
+            
+        }
+        if let constraint: NSLayoutConstraint = self.constraint {
+            textView.removeConstraint(constraint)
+        }
+        self.toolBar.setNeedsLayout()
+    }
+
+    public func send(text: String, block: ((Error?) -> Void)? = nil) {
         var transcript: Transcript = Transcript()
         let room: Room = Room(id: self.roomID)
         transcript.text = text
         transcript.room.set(room as! Transcript.Room)
         transcript.user.set((User(id: self.userID) as! Transcript.User))
-        if let constraint: NSLayoutConstraint = self.constraint {
-            textView.removeConstraint(constraint)
-        }
-        self.toolBar.setNeedsLayout()
         room.transcripts.insert(transcript as! Room.Transcript, block: { error in
-            print(error)
+            block?(error)
+        })
+    }
+
+    public func send(image: Data, mimeType: File.MIMEType, block: ((Error?) -> Void)? = nil) {
+        var transcript: Transcript = Transcript()
+        let room: Room = Room(id: self.roomID)
+        transcript.image = File(data: image, mimeType: mimeType)
+        transcript.room.set(room as! Transcript.Room)
+        transcript.user.set((User(id: self.userID) as! Transcript.User))
+        room.transcripts.insert(transcript as! Room.Transcript, block: { error in
+            block?(error)
         })
     }
 

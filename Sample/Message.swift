@@ -26,6 +26,8 @@ class Message: RealmSwift.Object, MessageProtocol {
 
     @objc dynamic var text: String?
 
+    @objc dynamic var image: String?
+
     override static func primaryKey() -> String? {
         return "id"
     }
