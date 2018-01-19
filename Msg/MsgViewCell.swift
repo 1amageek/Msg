@@ -42,7 +42,7 @@ extension MsgViewController {
             return view
         }()
 
-        public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 1, left: 32, bottom: 1, right: 24)
+        public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 1, left: 48, bottom: 1, right: 24)
 
         public var bolloonWidth: CGFloat = 0.65
 
@@ -126,6 +126,18 @@ extension MsgViewController {
 
     public class MsgLeftViewCell: MsgViewCell {
 
+        let thumbnailRadius: CGFloat = 16
+
+        public private(set) lazy var thumbnailImageView: UIImageView = {
+            let view: UIImageView = UIImageView(frame: .zero)
+            view.clipsToBounds = true
+            view.contentMode = .scaleAspectFit
+            view.layer.cornerRadius = self.thumbnailRadius
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = UIColor.lightGray
+            return view
+        }()
+
         public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             self.balloonLeadingConstraint.isActive = true
@@ -133,6 +145,11 @@ extension MsgViewController {
             self.balloonWidthConstraint.isActive = true
             self.messageView.textLabel.textColor = UIColor.darkText
             self.balloonView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1)
+            self.contentView.addSubview(thumbnailImageView)
+            thumbnailImageView.widthAnchor.constraint(equalToConstant: self.thumbnailRadius * 2).isActive = true
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: self.thumbnailRadius * 2).isActive = true
+            contentView.bottomAnchor.constraint(equalTo: self.thumbnailImageView.bottomAnchor, constant: self.contentInset.bottom).isActive = true
+            thumbnailImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8).isActive = true
         }
 
         public required init?(coder aDecoder: NSCoder) {

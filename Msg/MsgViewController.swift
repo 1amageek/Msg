@@ -91,8 +91,6 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
     }
 
     private func _scrollsToBottom() {
-        print(self.tableView.contentInset)
-        print(self.tableView.safeAreaInsets)
         let visibleHeight: CGFloat = self.tableView.bounds.height - self.tableView.safeAreaInsets.top - self.tableView.contentInset.bottom - self.tableView.safeAreaInsets.bottom
         if self.tableView.contentSize.height > visibleHeight {
             let offsetY: CGFloat = max(self.tableView.contentSize.height - self.tableView.safeAreaInsets.top - visibleHeight, 0)
