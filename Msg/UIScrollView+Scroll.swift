@@ -18,13 +18,13 @@ extension UIScrollView {
     }
 
     var offsetToBottom: CGPoint {
-        let visibleHeight: CGFloat = self.bounds.height - self.safeAreaInsets.top - self.contentInset.bottom
+        let visibleHeight: CGFloat = self.bounds.height - self.safeAreaInsets.top - self.contentInset.bottom - self.safeAreaInsets.bottom
         let offsetY: CGFloat = max(self.contentSize.height + self.safeAreaInsets.top - visibleHeight, 0)
         return CGPoint(x: 0, y: offsetY)
     }
 
     func scrollsToBottom(_ animated: Bool) {
-        let visibleHeight: CGFloat = self.bounds.height - self.safeAreaInsets.top - self.contentInset.bottom
+        let visibleHeight: CGFloat = self.bounds.height - self.safeAreaInsets.top - self.contentInset.bottom - self.safeAreaInsets.bottom
         if self.contentSize.height > visibleHeight {
             self.setContentOffset(offsetToBottom, animated: animated)
         }

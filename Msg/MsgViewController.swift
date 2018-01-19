@@ -53,7 +53,7 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
 
     private func _layoutTableView(_ frame: CGRect = .zero, isHidden: Bool) {
         let keyboardHeight: CGFloat = isHidden ? 0 : frame.height
-        let toolbarHeight: CGFloat = isHidden ? self.toolBar.bounds.height : (self.toolBar.bounds.height - self.view.safeAreaInsets.bottom)
+        let toolbarHeight: CGFloat = isHidden ? self.toolBar.bounds.height : (self.toolBar.bounds.height - self.toolBar.safeAreaInsets.bottom)
         let height: CGFloat = toolbarHeight + keyboardHeight - self.view.safeAreaInsets.bottom
         self.tableView.contentInset.bottom = height
         self.tableView.scrollIndicatorInsets.bottom = height
@@ -85,6 +85,19 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
 
     func keyboardWillLayout(_ frame: CGRect, isHidden: Bool) {
         _layoutTableView(frame, isHidden: isHidden)
+        if !isHidden {
+            _scrollsToBottom()
+        }
+    }
+
+    private func _scrollsToBottom() {
+        print(self.tableView.contentInset)
+        print(self.tableView.safeAreaInsets)
+        let visibleHeight: CGFloat = self.tableView.bounds.height - self.tableView.safeAreaInsets.top - self.tableView.contentInset.bottom - self.tableView.safeAreaInsets.bottom
+        if self.tableView.contentSize.height > visibleHeight {
+            let offsetY: CGFloat = max(self.tableView.contentSize.height - self.tableView.safeAreaInsets.top - visibleHeight, 0)
+            self.tableView.contentOffset = CGPoint(x: 0, y: offsetY)
+        }
     }
 
     override func viewDidLoad() {
@@ -169,7 +182,11 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
                     tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .bottom)
                     tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
                     tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                }, completion: nil)
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self?._scrollsToBottom()
+                    })
+                })
             case .error(let error): fatalError("\(error)")
             }
         }
