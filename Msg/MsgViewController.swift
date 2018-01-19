@@ -68,6 +68,11 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
         _layoutTableView(isHidden: true)
     }
 
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        self.tableView.scrollsToBottom(false)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         addKeyboardObservers()
@@ -85,6 +90,7 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sessionController.listen()
+        self.view.layoutIfNeeded()
     }
 
     // MARK: -
@@ -100,6 +106,11 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
         let textView: UITextView = UITextView(frame: .zero)
         textView.delegate = self
         textView.font = UIFont.systemFont(ofSize: 16)
+        textView.clipsToBounds = true
+        textView.layer.cornerRadius = 16
+        textView.layer.borderWidth = 0.5
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         return textView
     }()
 
@@ -133,7 +144,7 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message: Message = self.dataSource[indexPath.item]
-        if message.userID == self.userID {
+        if indexPath.row % 2 == 0 {
             return MsgRightViewCell.dequeue(from: tableView, for: indexPath, with: .init(message: message))
         }
         return MsgLeftViewCell.dequeue(from: tableView, for: indexPath, with: .init(message: message))
@@ -155,7 +166,7 @@ class MsgViewController<User: UserDocument, Room: RoomDocument, Transcript, Mess
             case .initial: tableView.reloadData()
             case .update(_, let deletions, let insertions, let modifications):
                 tableView.performBatchUpdates({
-                    tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                    tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .bottom)
                     tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
                     tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
                 }, completion: nil)

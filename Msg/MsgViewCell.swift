@@ -33,7 +33,20 @@ extension MsgViewController {
             return view
         }()
 
-        public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 2, left: 32, bottom: 2, right: 24)
+        public private(set) lazy var balloonView: UIView = {
+            let view: UIView = UIView(frame: .zero)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.clipsToBounds = true
+            view.layer.cornerRadius = self.bolloonCornerRadius
+            view.backgroundColor = .clear
+            return view
+        }()
+
+        public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 1, left: 32, bottom: 1, right: 24)
+
+        public var bolloonWidth: CGFloat = 0.65
+
+        public var bolloonCornerRadius: CGFloat = 16
 
         public lazy var widthConstraint: NSLayoutConstraint = {
             return self.contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
@@ -43,20 +56,24 @@ extension MsgViewController {
             return self.contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 0)
         }()
 
-        public lazy var topConstraint: NSLayoutConstraint = {
-            return self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
+        public lazy var balloonTopConstraint: NSLayoutConstraint = {
+            return self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: self.contentInset.top)
         }()
 
-        public lazy var bottomConstraint: NSLayoutConstraint = {
-            return self.stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
+        public lazy var balloonBottomConstraint: NSLayoutConstraint = {
+            return self.contentView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: self.contentInset.bottom)
         }()
 
-        public lazy var leadingConstraint: NSLayoutConstraint = {
+        public lazy var balloonLeadingConstraint: NSLayoutConstraint = {
             return self.stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: self.contentInset.left)
         }()
 
-        public lazy var trailingConstraint: NSLayoutConstraint = {
+        public lazy var balloonTrailingConstraint: NSLayoutConstraint = {
             return self.contentView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: self.contentInset.right)
+        }()
+
+        public lazy var balloonWidthConstraint: NSLayoutConstraint = {
+            return self.stackView.widthAnchor.constraint(lessThanOrEqualTo: self.contentView.widthAnchor, multiplier: self.bolloonWidth)
         }()
 
 
@@ -66,19 +83,24 @@ extension MsgViewController {
 
         public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
+            self.separatorInset.left = UIScreen.main.bounds.width
             self.contentView.translatesAutoresizingMaskIntoConstraints = false
             self.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
             self.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
             self.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
             self.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-
             self.contentView.addSubview(stackView)
+            self.stackView.addSubview(balloonView)
+            self.balloonView.topAnchor.constraint(equalTo: self.stackView.topAnchor).isActive = true
+            self.balloonView.bottomAnchor.constraint(equalTo: self.stackView.bottomAnchor).isActive = true
+            self.balloonView.leadingAnchor.constraint(equalTo: self.stackView.leadingAnchor).isActive = true
+            self.balloonView.trailingAnchor.constraint(equalTo: self.stackView.trailingAnchor).isActive = true
             self.widthConstraint.isActive = true
             self.heightConstraint.isActive = true
-            self.topConstraint.isActive = true
-            self.bottomConstraint.isActive = true
-            self.leadingConstraint.isActive = true
-            self.trailingConstraint.isActive = true
+            self.balloonTopConstraint.isActive = true
+            self.balloonBottomConstraint.isActive = true
+            self.balloonLeadingConstraint.isActive = true
+            self.balloonTrailingConstraint.isActive = true
 
             self.stackView.addArrangedSubview(messageView)
         }
@@ -92,15 +114,25 @@ extension MsgViewController {
             pictureView.isHidden = true
             messageView.isHidden = true
         }
+
+        public override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+
+        }
+
+        public override func setSelected(_ selected: Bool, animated: Bool) {
+            
+        }
     }
 
     public class MsgLeftViewCell: MsgViewCell {
 
         public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            self.leadingConstraint.isActive = true
-            self.trailingConstraint.isActive = false
-            self.stackView.widthAnchor.constraint(lessThanOrEqualTo: self.contentView.widthAnchor, multiplier: 0.8).isActive = true
+            self.balloonLeadingConstraint.isActive = true
+            self.balloonTrailingConstraint.isActive = false
+            self.balloonWidthConstraint.isActive = true
+            self.messageView.textLabel.textColor = UIColor.darkText
+            self.balloonView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1)
         }
 
         public required init?(coder aDecoder: NSCoder) {
@@ -112,10 +144,11 @@ extension MsgViewController {
 
         public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            self.leadingConstraint.isActive = false
-            self.trailingConstraint.isActive = true
-            self.stackView.widthAnchor.constraint(lessThanOrEqualTo: self.contentView.widthAnchor, multiplier: 0.8).isActive = true
-//            self.stackView.widthAnchor.constraint(lessThanOrEqualTo: self.contentView.widthAnchor, multiplier: 0.8).isActive = true
+            self.balloonLeadingConstraint.isActive = false
+            self.balloonTrailingConstraint.isActive = true
+            self.balloonWidthConstraint.isActive = true
+            self.messageView.textLabel.textColor = UIColor.white
+            self.balloonView.backgroundColor = UIColor(red: 23/255.0, green: 135/255.0, blue: 251/255.0, alpha: 1)
         }
 
         public required init?(coder aDecoder: NSCoder) {
