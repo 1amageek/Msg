@@ -1,8 +1,8 @@
 //
-//  Message.swift
+//  Sender.swift
 //  Sample
 //
-//  Created by 1amageek on 2018/01/16.
+//  Created by 1amageek on 2018/01/22.
 //  Copyright © 2018年 Stamp Inc. All rights reserved.
 //
 
@@ -11,25 +11,19 @@ import RealmSwift
 import Pring
 
 @objcMembers
-class Message: RealmSwift.Object, MessageProtocol {
+class Sender: RealmSwift.Object, SenderProtocol {
 
-    typealias Transcript = Sample.Transcript
-
-    typealias Sender = Sample.Sender
+    typealias User = Sample.User
 
     dynamic var id: String = ""
-
-    dynamic var roomID: String = ""
-
-    dynamic var userID: String = ""
 
     dynamic var createdAt: Date = Date()
 
     dynamic var updatedAt: Date = Date()
 
-    dynamic var sender: Sender?
+    dynamic var name: String?
 
-    dynamic var text: String?
+    dynamic var profileImageURL: String?
 
     public override static func primaryKey() -> String? {
         return "id"

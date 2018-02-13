@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Sample
 //
-//  Created by 1amageek on 2018/01/10.
+//  Created by 1amageek on 2018/01/17.
 //  Copyright © 2018年 Stamp Inc. All rights reserved.
 //
 
@@ -28,21 +28,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        settings.isPersistenceEnabled = true
 //        Firestore.firestore().settings = settings
 
-        let user: User = User(id: "B25fLWWUY5XdU9Ir9rYl")
-        let room: Room = Room(id: "G5WZK9Ek3vIcwDey0yXP")
-//        user.rooms.insert(room)
-//        user.save()
-
-        let viewController: MsgViewController<User, Room, Transcript, Message> = MsgViewController<User, Room, Transcript, Message>(roomID: "G5WZK9Ek3vIcwDey0yXP", userID: "B25fLWWUY5XdU9Ir9rYl")
-////        let viewController: MsgViewController = MsgViewController()
-
-        let navigationController = UINavigationController(rootViewController: viewController)
+//        let user0: User = User(id: "hoge")
+//        let user1: User = User(id: "fuga")
+//        let room: Room = Room()
+//
+//        user0.name = "hoge"
+//        user1.name = "fuga"
+//
+//        room.members.insert(user0)
+//        room.members.insert(user1)
+//        user0.rooms.insert(room)
+//        user1.rooms.insert(room)
+//        room.save()
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = Box<Sample.Thread, Sample.Sender, Sample.Message>.viewController(userID: "hoge")
         self.window?.makeKeyAndVisible()
 
         return true
     }
 }
+
 

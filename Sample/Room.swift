@@ -9,14 +9,19 @@
 import Foundation
 import Pring
 import FirebaseFirestore
-import MsgBox
 
 @objcMembers
-class Room: Pring.Object, RoomProtocol {
+class Room: Object, RoomProtocol {
 
     typealias Transcript = Sample.Transcript
 
-    var transcripts: SubCollection<Transcript> = []
+    typealias User = Sample.User
+
+    var transcripts: NestedCollection<Transcript> = []
+
+    var members: ReferenceCollection<User> = []
+
+    var viewers: ReferenceCollection<User> = []
 
     dynamic var name: String?
 }

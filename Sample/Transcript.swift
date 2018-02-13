@@ -6,13 +6,12 @@
 //  Copyright © 2018年 Stamp Inc. All rights reserved.
 //
 
-import RealmSwift
+import Foundation
 import Pring
-import MsgBox
 import FirebaseFirestore
 
 @objcMembers
-class Transcript: Pring.Object, TranscriptProtocol {
+class Transcript: Object, TranscriptProtocol {
 
     typealias User = Sample.User
 

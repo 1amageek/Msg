@@ -9,10 +9,9 @@
 import Foundation
 import Pring
 import FirebaseFirestore
-import MsgBox
 
 @objcMembers
-class User: Pring.Object, UserProtocol {
+class User: Object, UserProtocol {
 
     typealias Transcript = Sample.Transcript
 
@@ -20,9 +19,9 @@ class User: Pring.Object, UserProtocol {
 
     dynamic var name: String?
 
-    dynamic var thumbnail: File?
+    dynamic var profileImage: File?
 
-    var rooms: SubCollection<Room> = []
+    var rooms: ReferenceCollection<Room> = []
 
     var messageMox: ReferenceCollection<Transcript> = []
 }
