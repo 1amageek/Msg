@@ -67,6 +67,7 @@
 		12C7D4F42032FC7D00561AEB /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		12C7D4F52032FC7D00561AEB /* Transcript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		12C7D4F62032FC7E00561AEB /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		12C7D504203302E200561AEB /* Msg.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Msg.podspec; sourceTree = "<group>"; };
 		12D512502005DE9F00B80313 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D512592005DE9F00B80313 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12D5125C2005DE9F00B80313 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		1240865E2005A55A00F67E31 = {
 			isa = PBXGroup;
 			children = (
+				12C7D504203302E200561AEB /* Msg.podspec */,
 				1240866A2005A55A00F67E31 /* Msg */,
 				12D512512005DE9F00B80313 /* Sample */,
 				124086692005A55A00F67E31 /* Products */,
