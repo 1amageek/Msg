@@ -67,7 +67,7 @@ extension Box {
                 guard let thread = realm.resolve(ref) else {
                     fatalError()
                 }
-                let dependency: ThreadCellNode.Dependency = ThreadCellNode.Dependency(thread: thread)
+                let dependency: ThreadCellNode.Dependency = ThreadCellNode.Dependency(userID: self.userID, thread: thread)
                 return ThreadCellNode(dependency)
             }
         }

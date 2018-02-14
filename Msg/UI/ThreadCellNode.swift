@@ -13,6 +13,7 @@ extension Box {
     open class ThreadCellNode: ASCellNode {
 
         public struct Dependency {
+            var userID: String
             var thread: Thread
         }
 

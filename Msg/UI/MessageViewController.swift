@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 import Pring
 import Toolbar
 import OnTheKeyboard
@@ -156,21 +157,45 @@ extension Box {
         public func send(text: String, block: ((Error?) -> Void)? = nil) {
             var transcript: Transcript = Transcript()
             let room: Room = Room(id: self.roomID, value: [:])
+            let user: User = User(id: self.userID, value: [:])
             transcript.text = text
             transcript.room.set(room)
-            transcript.user.set(User(id: self.userID, value: [:]))
+            transcript.user.set(user)
             room.transcripts.insert(transcript)
             room.update(block)
+            room.members.query.get { (snapshot, _) in
+                if let documents: [QueryDocumentSnapshot] = snapshot?.documents {
+                    let batch: WriteBatch = Firestore.firestore().batch()
+                    documents.forEach { documentSnapshot in
+                        let user: User = User(id: documentSnapshot.documentID, value: [:])
+                        user.messageMox.insert(transcript)
+                        user.pack(.update, batch: batch)
+                    }
+                    batch.commit()
+                }
+            }
         }
 
         public func send(image: Data, mimeType: File.MIMEType, block: ((Error?) -> Void)? = nil) {
             var transcript: Transcript = Transcript()
             let room: Room = Room(id: self.roomID, value: [:])
+            let user: User = User(id: self.userID, value: [:])
             transcript.image = File(data: image, mimeType: mimeType)
             transcript.room.set(room)
-            transcript.user.set(User(id: self.userID, value: [:]))
+            transcript.user.set(user)
             room.transcripts.insert(transcript)
             room.update(block)
+            room.members.query.get { (snapshot, _) in
+                if let documents: [QueryDocumentSnapshot] = snapshot?.documents {
+                    let batch: WriteBatch = Firestore.firestore().batch()
+                    documents.forEach { documentSnapshot in
+                        let user: User = User(id: documentSnapshot.documentID, value: [:])
+                        user.messageMox.insert(transcript)
+                        user.pack(.update, batch: batch)
+                    }
+                    batch.commit()
+                }
+            }
         }
 
         private func _viewed(_ block: ((Error?) -> Void)? = nil) {

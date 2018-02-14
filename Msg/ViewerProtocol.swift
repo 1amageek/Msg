@@ -23,6 +23,10 @@ public protocol ViewerProtocol {
 
 public extension ViewerProtocol where Self: RealmSwift.Object {
 
+    public static func id(userID: String, roomID: String) -> String {
+        return "\(roomID)\(userID)"
+    }
+
     public static func saveIfNeeded(users: [User], threadID: String) {
         let queue: DispatchQueue = DispatchQueue(label: "viewer.save.queue")
         queue.async {
@@ -31,7 +35,7 @@ public extension ViewerProtocol where Self: RealmSwift.Object {
                 var updateViewers: [Self] = []
                 var insertViewers: [Self] = []
                 for (_, user) in Set(users).enumerated() {
-                    let id: String = "\(user.id)\(threadID)"
+                    let id: String = Self.id(userID: user.id, roomID: threadID)
                     if var viewer = realm.objects(Self.self).filter("id == %@", id).first {
                         if viewer.viewedAt < user.updatedAt {
                             viewer.viewedAt = user.updatedAt

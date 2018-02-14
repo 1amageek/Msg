@@ -45,9 +45,12 @@ where
                 if !insertions.isEmpty {
                     let transcripts: [Transcript] = insertions.flatMap { return self?.dataSource[$0] }
                     Message.saveIfNeeded(transcripts: transcripts)
-                    if let last: Transcript = transcripts.last {
-                        Thread.update(id: last.room.id!, messageID: last.id)
+                    transcripts.forEach { (transcript) in
+                        
                     }
+//                    if let last: Transcript = transcripts.last {
+//                        Thread.update(id: last.room.id!, messageID: last.id)
+//                    }
                 }
                 if !modifications.isEmpty {
                     let transcripts: [Transcript] = modifications.flatMap { return self?.dataSource[$0] }
