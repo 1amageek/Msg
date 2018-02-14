@@ -34,6 +34,17 @@ where
             .dataSource()
     }
 
+    private func _updateBadgeCount(_ transcripts: [Transcript]) {
+        let queue: DispatchQueue = DispatchQueue(label: ".update.queue")
+        queue.async {
+            let roomIDs: [String] = transcripts.flatMap { return $0.room.documentReference?.documentID }
+            roomIDs.forEach { (id) in
+                let filteredTranscripts = transcripts.filter { return $0.room.documentReference?.documentID == id }
+                Thread.update(id: id, badgeCount: filteredTranscripts.count)
+            }
+        }
+    }
+
     public func listen() {
         self.dataSource.on({ [weak self] (_, change) in
             switch change {
@@ -45,12 +56,7 @@ where
                 if !insertions.isEmpty {
                     let transcripts: [Transcript] = insertions.flatMap { return self?.dataSource[$0] }
                     Message.saveIfNeeded(transcripts: transcripts)
-                    transcripts.forEach { (transcript) in
-                        
-                    }
-//                    if let last: Transcript = transcripts.last {
-//                        Thread.update(id: last.room.id!, messageID: last.id)
-//                    }
+                    self?._updateBadgeCount(transcripts)
                 }
                 if !modifications.isEmpty {
                     let transcripts: [Transcript] = modifications.flatMap { return self?.dataSource[$0] }

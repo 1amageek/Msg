@@ -41,6 +41,8 @@ extension Box {
             return formatter
         }()
 
+        public var hasBadge: Bool = false
+
         public init(_ dependency: Dependency) {
             super.init()
             automaticallyManagesSubnodes = true
@@ -58,8 +60,12 @@ extension Box {
                 dateNode.attributedText = NSAttributedString(string: self.dateFormatter.string(from: date))
             }
 
-            badgeCountNode.attributedText = NSAttributedString(string: "00", attributes: [.foregroundColor: UIColor.white,
-                                                                                          .font: UIFont.boldSystemFont(ofSize: 15)])
+            if dependency.thread.badgeCount > 0 {
+                hasBadge = true
+                let badgeCount: String = (dependency.thread.badgeCount > 999) ? "999+" : "\(dependency.thread.badgeCount)"
+                badgeCountNode.attributedText = NSAttributedString(string: badgeCount, attributes: [.foregroundColor: UIColor.white,
+                                                                                                    .font: UIFont.boldSystemFont(ofSize: 15)])
+            }
 
             thumbnailImageNode.willDisplayNodeContentWithRenderingContext = { context, drawParameters in
                 let bounds = context.boundingBoxOfClipPath
@@ -95,7 +101,8 @@ extension Box {
             let badgeCountSpec: ASCenterLayoutSpec = ASCenterLayoutSpec(horizontalPosition: .center, verticalPosition: .center, sizingOption: .minimumSize, child: backgroundSpec)
 
             let rightStackSpec: ASStackLayoutSpec = ASStackLayoutSpec.vertical()
-            rightStackSpec.children = [dateInsetSpec, badgeCountSpec]
+
+            rightStackSpec.children = hasBadge ? [dateInsetSpec, badgeCountSpec] : [dateInsetSpec]
             rightStackSpec.style.flexShrink = 1
 
             let horizontalStackSpec: ASStackLayoutSpec = ASStackLayoutSpec.horizontal()

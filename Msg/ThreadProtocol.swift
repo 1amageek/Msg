@@ -24,6 +24,7 @@ public protocol ThreadProtocol where Self.Message: RealmSwift.Object, Self.Sende
     var thumbnailImageURL: String? { get set }
     var lastMessage: Message? { get set }
     var viewers: List<Viewer> { get set }
+    var badgeCount: Int { get set }
 
     init(room: Room)
 
@@ -94,6 +95,16 @@ public extension ThreadProtocol where Self: RealmSwift.Object {
             }
         } else {
             try! realm.write {
+                realm.add(thread, update: true)
+            }
+        }
+    }
+
+    public static func update(id: String, badgeCount: Int) {
+        let realm: Realm = try! Realm()
+        try! realm.write {
+            if var thread = realm.objects(Self.self).filter("id == %@", id).first {
+                thread.badgeCount = badgeCount
                 realm.add(thread, update: true)
             }
         }

@@ -34,6 +34,8 @@ class Thread: RealmSwift.Object, ThreadProtocol {
     dynamic var lastMessage: Message?
 
     dynamic var viewers: List<Viewer> = .init()
+
+    dynamic var badgeCount: Int = 0
     
     public override static func primaryKey() -> String? {
         return "id"
