@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1240866D2005A55A00F67E31 /* Msg.h in Headers */ = {isa = PBXBuildFile; fileRef = 1240866B2005A55A00F67E31 /* Msg.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		12C7D4C92032FB2E00561AEB /* Viewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4B92032FB2C00561AEB /* Viewer.swift */; };
 		12C7D4D92032FB5100561AEB /* TranscriptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D52032FB5100561AEB /* TranscriptController.swift */; };
 		12C7D4DA2032FB5100561AEB /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D62032FB5100561AEB /* RoomController.swift */; };
 		12C7D4DB2032FB5100561AEB /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D72032FB5100561AEB /* Box.swift */; };
@@ -26,16 +25,24 @@
 		12C7D4F72032FC7E00561AEB /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4F42032FC7D00561AEB /* Room.swift */; };
 		12C7D4F82032FC7E00561AEB /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4F52032FC7D00561AEB /* Transcript.swift */; };
 		12C7D4F92032FC7E00561AEB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4F62032FC7E00561AEB /* User.swift */; };
-		12C7D4FA2032FC8200561AEB /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D72032FB5100561AEB /* Box.swift */; };
-		12C7D4FB2032FC8200561AEB /* MsgProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D82032FB5100561AEB /* MsgProtocol.swift */; };
-		12C7D4FC2032FC8200561AEB /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D62032FB5100561AEB /* RoomController.swift */; };
-		12C7D4FD2032FC8200561AEB /* TranscriptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D52032FB5100561AEB /* TranscriptController.swift */; };
 		12C7D4FE2032FC8500561AEB /* Viewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4B92032FB2C00561AEB /* Viewer.swift */; };
 		12C7D4FF2032FC8800561AEB /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4DD2032FB5A00561AEB /* MessageView.swift */; };
 		12C7D5002032FC8800561AEB /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4E12032FB5B00561AEB /* MessageViewController.swift */; };
 		12C7D5012032FC8800561AEB /* TextCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4DE2032FB5A00561AEB /* TextCellNode.swift */; };
 		12C7D5022032FC8800561AEB /* ThreadCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4DF2032FB5A00561AEB /* ThreadCellNode.swift */; };
 		12C7D5032032FC8800561AEB /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4E02032FB5B00561AEB /* ThreadViewController.swift */; };
+		12C7D5092034321300561AEB /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D5082034321300561AEB /* MessageProtocol.swift */; };
+		12C7D50B2034323800561AEB /* SenderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D50A2034323800561AEB /* SenderProtocol.swift */; };
+		12C7D50D2034325D00561AEB /* ThreadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D50C2034325D00561AEB /* ThreadProtocol.swift */; };
+		12C7D512203432AF00561AEB /* ViewerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D511203432AF00561AEB /* ViewerProtocol.swift */; };
+		12C7D514203437F000561AEB /* MsgProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D82032FB5100561AEB /* MsgProtocol.swift */; };
+		12C7D515203437F000561AEB /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D5082034321300561AEB /* MessageProtocol.swift */; };
+		12C7D516203437F000561AEB /* SenderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D50A2034323800561AEB /* SenderProtocol.swift */; };
+		12C7D517203437F000561AEB /* ViewerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D511203432AF00561AEB /* ViewerProtocol.swift */; };
+		12C7D518203437F000561AEB /* ThreadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D50C2034325D00561AEB /* ThreadProtocol.swift */; };
+		12C7D519203437F000561AEB /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D72032FB5100561AEB /* Box.swift */; };
+		12C7D51A203437F000561AEB /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D62032FB5100561AEB /* RoomController.swift */; };
+		12C7D51B203437F000561AEB /* TranscriptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7D4D52032FB5100561AEB /* TranscriptController.swift */; };
 		12D5125A2005DE9F00B80313 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12D512592005DE9F00B80313 /* Assets.xcassets */; };
 		12D5125D2005DE9F00B80313 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12D5125B2005DE9F00B80313 /* LaunchScreen.storyboard */; };
 		12D5126E2005EDAB00B80313 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12D5126D2005EDAB00B80313 /* Main.storyboard */; };
@@ -68,6 +75,10 @@
 		12C7D4F52032FC7D00561AEB /* Transcript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		12C7D4F62032FC7E00561AEB /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		12C7D504203302E200561AEB /* Msg.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Msg.podspec; sourceTree = "<group>"; };
+		12C7D5082034321300561AEB /* MessageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
+		12C7D50A2034323800561AEB /* SenderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderProtocol.swift; sourceTree = "<group>"; };
+		12C7D50C2034325D00561AEB /* ThreadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadProtocol.swift; sourceTree = "<group>"; };
+		12C7D511203432AF00561AEB /* ViewerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerProtocol.swift; sourceTree = "<group>"; };
 		12D512502005DE9F00B80313 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D512592005DE9F00B80313 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12D5125C2005DE9F00B80313 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -128,10 +139,13 @@
 			children = (
 				1240866B2005A55A00F67E31 /* Msg.h */,
 				12C7D4D82032FB5100561AEB /* MsgProtocol.swift */,
+				12C7D5082034321300561AEB /* MessageProtocol.swift */,
+				12C7D50A2034323800561AEB /* SenderProtocol.swift */,
+				12C7D511203432AF00561AEB /* ViewerProtocol.swift */,
+				12C7D50C2034325D00561AEB /* ThreadProtocol.swift */,
 				12C7D4D72032FB5100561AEB /* Box.swift */,
 				12C7D4D62032FB5100561AEB /* RoomController.swift */,
 				12C7D4D52032FB5100561AEB /* TranscriptController.swift */,
-				12C7D4E82032FC3700561AEB /* Model */,
 				12C7D4E72032FC2F00561AEB /* UI */,
 				1240866C2005A55A00F67E31 /* Info.plist */,
 			);
@@ -150,14 +164,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		12C7D4E82032FC3700561AEB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				12C7D4B92032FB2C00561AEB /* Viewer.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		12D512512005DE9F00B80313 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +171,7 @@
 				12C7D4EB2032FC5A00561AEB /* ViewController.swift */,
 				12C7D4EF2032FC7300561AEB /* Message.swift */,
 				12C7D4F02032FC7300561AEB /* Sender.swift */,
+				12C7D4B92032FB2C00561AEB /* Viewer.swift */,
 				12C7D4EE2032FC7300561AEB /* Thread.swift */,
 				12C7D4F42032FC7D00561AEB /* Room.swift */,
 				12C7D4F52032FC7D00561AEB /* Transcript.swift */,
@@ -442,13 +449,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				12C7D4E22032FB5B00561AEB /* MessageView.swift in Sources */,
-				12C7D4C92032FB2E00561AEB /* Viewer.swift in Sources */,
+				12C7D512203432AF00561AEB /* ViewerProtocol.swift in Sources */,
 				12C7D4DA2032FB5100561AEB /* RoomController.swift in Sources */,
 				12C7D4DC2032FB5100561AEB /* MsgProtocol.swift in Sources */,
 				12C7D4E62032FB5B00561AEB /* MessageViewController.swift in Sources */,
 				12C7D4D92032FB5100561AEB /* TranscriptController.swift in Sources */,
+				12C7D50B2034323800561AEB /* SenderProtocol.swift in Sources */,
 				12C7D4E42032FB5B00561AEB /* ThreadCellNode.swift in Sources */,
 				12C7D4E32032FB5B00561AEB /* TextCellNode.swift in Sources */,
+				12C7D5092034321300561AEB /* MessageProtocol.swift in Sources */,
+				12C7D50D2034325D00561AEB /* ThreadProtocol.swift in Sources */,
 				12C7D4DB2032FB5100561AEB /* Box.swift in Sources */,
 				12C7D4E52032FB5B00561AEB /* ThreadViewController.swift in Sources */,
 			);
@@ -458,24 +468,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12C7D4FA2032FC8200561AEB /* Box.swift in Sources */,
 				12C7D4ED2032FC5A00561AEB /* ViewController.swift in Sources */,
+				12C7D51A203437F000561AEB /* RoomController.swift in Sources */,
+				12C7D518203437F000561AEB /* ThreadProtocol.swift in Sources */,
+				12C7D517203437F000561AEB /* ViewerProtocol.swift in Sources */,
 				12C7D4F22032FC7400561AEB /* Message.swift in Sources */,
+				12C7D514203437F000561AEB /* MsgProtocol.swift in Sources */,
 				12C7D4FE2032FC8500561AEB /* Viewer.swift in Sources */,
 				12C7D5002032FC8800561AEB /* MessageViewController.swift in Sources */,
-				12C7D4FD2032FC8200561AEB /* TranscriptController.swift in Sources */,
-				12C7D4FC2032FC8200561AEB /* RoomController.swift in Sources */,
+				12C7D516203437F000561AEB /* SenderProtocol.swift in Sources */,
 				12C7D4F72032FC7E00561AEB /* Room.swift in Sources */,
+				12C7D519203437F000561AEB /* Box.swift in Sources */,
 				12C7D5032032FC8800561AEB /* ThreadViewController.swift in Sources */,
+				12C7D515203437F000561AEB /* MessageProtocol.swift in Sources */,
 				12C7D5012032FC8800561AEB /* TextCellNode.swift in Sources */,
 				12C7D4F12032FC7400561AEB /* Thread.swift in Sources */,
 				12C7D4F92032FC7E00561AEB /* User.swift in Sources */,
 				12C7D4EC2032FC5A00561AEB /* AppDelegate.swift in Sources */,
-				12C7D4FB2032FC8200561AEB /* MsgProtocol.swift in Sources */,
 				12C7D4F82032FC7E00561AEB /* Transcript.swift in Sources */,
 				12C7D5022032FC8800561AEB /* ThreadCellNode.swift in Sources */,
 				12C7D4FF2032FC8800561AEB /* MessageView.swift in Sources */,
 				12C7D4F32032FC7400561AEB /* Sender.swift in Sources */,
+				12C7D51B203437F000561AEB /* TranscriptController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

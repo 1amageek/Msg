@@ -40,16 +40,16 @@ public extension Box {
                 switch change {
                 case .initial:
                     if let users: [User] = self?.viewers.documents {
-                        Viewer<User>.saveIfNeeded(users: users, threadID: roomID)
+                        Viewer.saveIfNeeded(users: users, threadID: roomID)
                     }
                 case .update(deletions: _, insertions: let insertions, modifications: let modifications):
                     if !insertions.isEmpty {
                         let users: [User] = insertions.flatMap { return self?.viewers[$0] }
-                        Viewer<User>.saveIfNeeded(users: users, threadID: roomID)
+                        Viewer.saveIfNeeded(users: users, threadID: roomID)
                     }
                     if !modifications.isEmpty {
                         let users: [User] = modifications.flatMap { return self?.viewers[$0] }
-                        Viewer<User>.saveIfNeeded(users: users, threadID: roomID)
+                        Viewer.saveIfNeeded(users: users, threadID: roomID)
                     }
                 case .error(let error): print(error)
                 }

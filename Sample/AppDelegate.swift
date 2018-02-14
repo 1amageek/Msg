@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        room.save()
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = Box<Sample.Thread, Sample.Sender, Sample.Message>.viewController(userID: "hoge")
+        self.window?.rootViewController = Box<Sample.Thread, Sample.Sender, Sample.Message, Sample.Viewer>.viewController(userID: "hoge")
         self.window?.makeKeyAndVisible()
 
         return true

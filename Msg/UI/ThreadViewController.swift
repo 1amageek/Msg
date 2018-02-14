@@ -12,11 +12,11 @@ import RealmSwift
 import AsyncDisplayKit
 
 extension Box {
-    class ThreadViewController: ASViewController<ASTableNode>, ASTableDelegate, ASTableDataSource {
+    open class ThreadViewController: ASViewController<ASTableNode>, ASTableDelegate, ASTableDataSource {
 
-        let userID: String
+        public let userID: String
 
-        let sessionController: Box<Thread, Sender, Message>.RoomController
+        public let sessionController: Box<Thread, Sender, Message, Viewer>.RoomController
 
         public init(userID: String) {
             self.userID = userID
@@ -24,44 +24,50 @@ extension Box {
             super.init(node: tableNode)
         }
 
-        required init?(coder aDecoder: NSCoder) {
+        public required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
 
-        lazy var tableNode: ASTableNode = {
+        public lazy var tableNode: ASTableNode = {
             let node: ASTableNode = ASTableNode(style: .plain)
             node.delegate = self
             node.dataSource = self
             return node
         }()
 
-        var tableView: UITableView {
+        public var tableView: UITableView {
             return self.tableNode.view
         }
 
-        override func loadView() {
+        open override func loadView() {
             super.loadView()
-            tableNode.view.separatorStyle = .none
+//            tableNode.view.separatorStyle = .none
         }
 
-        override func viewDidLoad() {
+        open override func viewDidLoad() {
             super.viewDidLoad()
             self.sessionController.listen()
         }
 
-        func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        open func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
             return self.dataSource.count
         }
 
-        func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        open func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
             let thread: Thread = self.dataSource[indexPath.item]
             let viewController: MessageViewController = MessageViewController(roomID: thread.id, userID: self.userID)
             self.navigationController?.pushViewController(viewController, animated: true)
         }
 
-        func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-            let dependency: ThreadCellNode.Dependency = ThreadCellNode.Dependency(thread: self.dataSource[indexPath.item])
+        open func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+            let thread: Thread = self.dataSource[indexPath.item]
+            let ref = ThreadSafeReference(to: thread)
             return {
+                let realm = try! Realm()
+                guard let thread = realm.resolve(ref) else {
+                    fatalError()
+                }
+                let dependency: ThreadCellNode.Dependency = ThreadCellNode.Dependency(thread: thread)
                 return ThreadCellNode(dependency)
             }
         }

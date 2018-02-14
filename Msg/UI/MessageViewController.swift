@@ -14,32 +14,32 @@ import RealmSwift
 import AsyncDisplayKit
 
 extension Box {
-    class MessageViewController: ASViewController<MsgView>, ASTableDelegate, ASTableDataSource, OnTheKeyboard, UITextViewDelegate {
+    open class MessageViewController: ASViewController<MsgView>, ASTableDelegate, ASTableDataSource, OnTheKeyboard, UITextViewDelegate {
 
-        let roomID: String
+        public let roomID: String
 
-        let userID: String
+        public let userID: String
 
-        let sessionController: Box<Thread, Sender, Message>.TranscriptController
+        public let sessionController: Box<Thread, Sender, Message, Viewer>.TranscriptController
 
-        init(roomID: String, userID: String) {
+        public init(roomID: String, userID: String) {
             self.roomID = roomID
             self.userID = userID
             self.sessionController = Box.TranscriptController(roomID: roomID)
             super.init(node: msgView)
         }
 
-        required init?(coder aDecoder: NSCoder) {
+        public required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
 
-        var keyboardObservers: [Any] = []
+        public var keyboardObservers: [Any] = []
 
-        var toolBar: Toolbar = Toolbar()
+        public var toolBar: Toolbar = Toolbar()
 
-        var toolbarBottomConstraint: NSLayoutConstraint?
+        public var toolbarBottomConstraint: NSLayoutConstraint?
 
-        lazy var msgView: MsgView = {
+        public lazy var msgView: MsgView = {
             let view: MsgView = MsgView()
             view.tableNode.delegate = self
             view.tableNode.dataSource = self
@@ -49,38 +49,38 @@ extension Box {
             return view
         }()
 
-        var tableNode: ASTableNode {
+        public var tableNode: ASTableNode {
             return self.msgView.tableNode
         }
 
-        var tableView: UITableView {
+        public var tableView: UITableView {
             return self.msgView.tableNode.view
         }
 
-        override func loadView() {
+        open override func loadView() {
             super.loadView()
             showToolBar(view)
             toolBar.setItems([ToolbarItem(customView: self.textView), self.sendBarItem], animated: false)
             toolBar.layoutIfNeeded()
         }
 
-        override func viewDidLoad() {
+        open override func viewDidLoad() {
             super.viewDidLoad()
             self.sessionController.listen()
-
         }
 
-        override func viewDidAppear(_ animated: Bool) {
+        open override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             addKeyboardObservers()
+            _viewed()
         }
 
-        override func viewDidDisappear(_ animated: Bool) {
+        open override func viewDidDisappear(_ animated: Bool) {
             super.viewDidDisappear(animated)
             removeKeyboardObservers()
         }
 
-        override func viewSafeAreaInsetsDidChange() {
+        open override func viewSafeAreaInsetsDidChange() {
             super.viewSafeAreaInsetsDidChange()
             let invertedTop: CGFloat = toolBar.bounds.height - self.view.safeAreaInsets.top
             let invertedBottom: CGFloat = self.view.safeAreaInsets.top
@@ -89,7 +89,7 @@ extension Box {
             tableView.scrollIndicatorInsets = contentInset
         }
 
-        func keyboardWillLayout(_ frame: CGRect, isHidden: Bool) {
+        open func keyboardWillLayout(_ frame: CGRect, isHidden: Bool) {
             _layoutTableView(frame, isHidden: isHidden)
             if !isHidden {
                 let contentOffset: CGPoint = CGPoint(x: 0, y: -(self.toolBar.bounds.height + frame.height))
@@ -155,29 +155,35 @@ extension Box {
 
         public func send(text: String, block: ((Error?) -> Void)? = nil) {
             var transcript: Transcript = Transcript()
-            let room: Room = Room(id: self.roomID)
+            let room: Room = Room(id: self.roomID, value: [:])
             transcript.text = text
             transcript.room.set(room)
-            transcript.user.set(User(id: self.userID))
+            transcript.user.set(User(id: self.userID, value: [:]))
             room.transcripts.insert(transcript)
             room.update(block)
         }
 
         public func send(image: Data, mimeType: File.MIMEType, block: ((Error?) -> Void)? = nil) {
             var transcript: Transcript = Transcript()
-            let room: Room = Room(id: self.roomID)
+            let room: Room = Room(id: self.roomID, value: [:])
             transcript.image = File(data: image, mimeType: mimeType)
             transcript.room.set(room)
-            transcript.user.set(User(id: self.userID))
+            transcript.user.set(User(id: self.userID, value: [:]))
             room.transcripts.insert(transcript)
             room.update(block)
         }
 
-        func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        private func _viewed(_ block: ((Error?) -> Void)? = nil) {
+            let room: Room = Room(id: self.roomID, value: [:])
+            room.viewers.insert(User(id: self.userID, value: [:]))
+            room.update(block)
+        }
+
+        open func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
             return self.dataSource.count
         }
 
-        func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        open func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
             let message: Message = self.dataSource[indexPath.item]
             let ref = ThreadSafeReference(to: message)
             return {
@@ -228,7 +234,7 @@ extension Box {
 
         // MARK:
 
-        func textViewDidChange(_ textView: UITextView) {
+        open func textViewDidChange(_ textView: UITextView) {
             let size: CGSize = textView.sizeThatFits(textView.bounds.size)
             if let constraint: NSLayoutConstraint = self.constraint {
                 textView.removeConstraint(constraint)

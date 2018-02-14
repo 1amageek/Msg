@@ -10,62 +10,99 @@ import UIKit
 import AsyncDisplayKit
 
 extension Box {
-    class ThreadCellNode: ASCellNode {
+    open class ThreadCellNode: ASCellNode {
 
         public struct Dependency {
             var thread: Thread
         }
 
-        let thumbnailImageRadius: CGFloat = 16
+        public let thumbnailImageRadius: CGFloat = 24
 
-        let thumbnailImageNode: ASNetworkImageNode = ASNetworkImageNode()
+        public let badgeRadius: CGFloat = 12
 
-        let nameNode: ASTextNode = ASTextNode()
+        public let thumbnailImageNode: ASNetworkImageNode = ASNetworkImageNode()
 
-        let balloonNode: ASDisplayNode = ASDisplayNode()
+        public let nameNode: ASTextNode = ASTextNode()
 
-        let textNode: ASTextNode = ASTextNode()
+        public let textNode: ASTextNode = ASTextNode()
 
-        let aaaNode: ASTextNode = ASTextNode()
+        public let dateNode: ASTextNode = ASTextNode()
 
-        init(_ dependency: Dependency) {
+        public let badgeNode: ASDisplayNode = ASDisplayNode()
+
+        public let badgeCountNode: ASTextNode = ASTextNode()
+
+        public let dateFormatter: DateFormatter = {
+            let formatter: DateFormatter = DateFormatter()
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+            formatter.doesRelativeDateFormatting = true
+            return formatter
+        }()
+
+        public init(_ dependency: Dependency) {
             super.init()
             automaticallyManagesSubnodes = true
-            nameNode.attributedText = NSAttributedString(string: "hannahmbanana")
-            textNode.attributedText = NSAttributedString(string: "dependency.text")
-            aaaNode.attributedText = NSAttributedString(string: "hawwwwwwwwefwefnnahmbanana")
+            if let name: String = dependency.thread.name {
+                nameNode.attributedText = NSAttributedString(string: name,
+                                                             attributes: [.foregroundColor: UIColor.darkText,
+                                                                          .font: UIFont.boldSystemFont(ofSize: 16)])
+            }
+            if let text: String = dependency.thread.lastMessage?.text {
+                textNode.attributedText = NSAttributedString(string: text,
+                                                             attributes: [.foregroundColor: UIColor.darkText,
+                                                                          .font: UIFont.boldSystemFont(ofSize: 16)])
+            }
+            if let date: Date = dependency.thread.lastMessage?.updatedAt {
+                dateNode.attributedText = NSAttributedString(string: self.dateFormatter.string(from: date))
+            }
+
+            badgeCountNode.attributedText = NSAttributedString(string: "00", attributes: [.foregroundColor: UIColor.white,
+                                                                                          .font: UIFont.boldSystemFont(ofSize: 15)])
+
             thumbnailImageNode.willDisplayNodeContentWithRenderingContext = { context, drawParameters in
                 let bounds = context.boundingBoxOfClipPath
                 UIBezierPath(roundedRect: bounds, cornerRadius: self.thumbnailImageRadius).addClip()
             }
         }
 
-        override func didLoad() {
+        open override func didLoad() {
             super.didLoad()
             thumbnailImageNode.backgroundColor = UIColor.lightGray
-            balloonNode.backgroundColor = UIColor(red: 23/255.0, green: 135/255.0, blue: 251/255.0, alpha: 1)
+            thumbnailImageNode.clipsToBounds = true
+            thumbnailImageNode.cornerRadius = thumbnailImageRadius
+
+            badgeNode.backgroundColor = UIColor.red
+            badgeNode.clipsToBounds = true
+            badgeNode.cornerRadius = badgeRadius
         }
 
-        override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        open override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
             thumbnailImageNode.style.preferredSize = CGSize(width: thumbnailImageRadius * 2, height: thumbnailImageRadius * 2)
 
-            let nameInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8), child: nameNode)
+            let nameInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), child: nameNode)
+            let textInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), child: textNode)
+            let centerStackSpec: ASStackLayoutSpec = ASStackLayoutSpec.vertical()
+            centerStackSpec.children = [nameInsetSpec, textInsetSpec]
+            centerStackSpec.style.flexShrink = 1
+            centerStackSpec.style.flexGrow = 1
 
-            let textInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12), child: textNode)
+            let dateInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8), child: dateNode)
+            let badgeCountInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8), child: badgeCountNode)
+            let backgroundSpec: ASBackgroundLayoutSpec = ASBackgroundLayoutSpec(child: badgeCountInsetSpec, background: badgeNode)
+            let badgeCountSpec: ASCenterLayoutSpec = ASCenterLayoutSpec(horizontalPosition: .center, verticalPosition: .center, sizingOption: .minimumSize, child: backgroundSpec)
 
-            let backgroundSpec: ASBackgroundLayoutSpec = ASBackgroundLayoutSpec(child: textInsetSpec, background: balloonNode)
-
-            let verticalStackSpec: ASStackLayoutSpec = ASStackLayoutSpec.vertical()
-            verticalStackSpec.children = [nameInsetSpec, backgroundSpec]
-            verticalStackSpec.style.flexShrink = 1
+            let rightStackSpec: ASStackLayoutSpec = ASStackLayoutSpec.vertical()
+            rightStackSpec.children = [dateInsetSpec, badgeCountSpec]
+            rightStackSpec.style.flexShrink = 1
 
             let horizontalStackSpec: ASStackLayoutSpec = ASStackLayoutSpec.horizontal()
-            horizontalStackSpec.verticalAlignment = .bottom
-            horizontalStackSpec.spacing = 8
-            horizontalStackSpec.children = [thumbnailImageNode, verticalStackSpec]
+            horizontalStackSpec.verticalAlignment = .top
+            horizontalStackSpec.spacing = 16
+            horizontalStackSpec.children = [thumbnailImageNode, centerStackSpec, rightStackSpec]
 
-            return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 120), child: horizontalStackSpec)
+            return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16), child: horizontalStackSpec)
         }
     }
 }

@@ -19,6 +19,8 @@ class Thread: RealmSwift.Object, ThreadProtocol {
 
     typealias Sender = Sample.Sender
 
+    typealias Viewer = Sample.Viewer
+
     dynamic var id: String = ""
 
     dynamic var createdAt: Date = Date()
@@ -31,7 +33,7 @@ class Thread: RealmSwift.Object, ThreadProtocol {
 
     dynamic var lastMessage: Message?
 
-    dynamic var viewers: List<Sender> = .init()
+    dynamic var viewers: List<Viewer> = .init()
     
     public override static func primaryKey() -> String? {
         return "id"

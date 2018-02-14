@@ -10,12 +10,13 @@ import Foundation
 import Pring
 import RealmSwift
 
-public class Box<Thread: ThreadProtocol, Sender, Message>: NSObject
+public class Box<Thread: ThreadProtocol, Sender, Message, Viewer>: NSObject
 where
     Thread: RealmSwift.Object,
-    Thread.Room == Sender.User.Room, Thread.Room == Message.Transcript.Room, Thread.Message == Message, Thread.Sender == Sender,
+    Thread.Room == Sender.User.Room, Thread.Room == Message.Transcript.Room, Thread.Message == Message, Thread.Sender == Sender, Thread.Viewer == Viewer,
     Sender.User == Thread.Room.User, Sender.User == Message.Transcript.User,
-    Message.Transcript == Thread.Room.Transcript, Message.Transcript == Sender.User.Transcript, Message.Sender == Sender
+    Message.Transcript == Thread.Room.Transcript, Message.Transcript == Sender.User.Transcript, Message.Sender == Sender,
+    Viewer.User == Sender.User
     {
 
     public typealias Room = Thread.Room
