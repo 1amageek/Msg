@@ -45,7 +45,7 @@ public protocol HasRooms {
 // MARK: Room
 
 public protocol RoomType {
-    var name: String? { get }
+    var name: String? { get set }
 }
 
 public protocol HasMembers {

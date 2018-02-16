@@ -59,6 +59,14 @@ where
         }).listen()
     }
 
+    class func create(name: String?, userIDs: [String], block: ((Error?) -> Void)? = nil) {
+        var room: Room = Room()
+        room.name = name
+        let users: [User] = userIDs.flatMap { return User(id: $0, value: [:]) }
+        room.members.insert(users)
+        room.update(block)
+    }
+
     public class func viewController(userID: String) -> UINavigationController {
         let viewController: ThreadViewController = ThreadViewController(userID: userID)//RoomViewController(userID: userID)
         return UINavigationController(rootViewController: viewController)
