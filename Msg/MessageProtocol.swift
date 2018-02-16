@@ -33,6 +33,10 @@ public class Medium: RealmSwift.Object {
         self.init()
         self.url = url
     }
+
+    public static func ==(lhs: Medium, rhs: Medium) -> Bool {
+        return lhs.url == rhs.url
+    }
 }
 
 public protocol MessageProtocol where Sender: RealmSwift.Object {
@@ -65,6 +69,17 @@ public protocol MessageProtocol where Sender: RealmSwift.Object {
 }
 
 public extension MessageProtocol where Self: RealmSwift.Object {
+
+    static public func ==(lhs: Self, rhs: Self) -> Bool {
+        return (
+            lhs.text == rhs.text &&
+                lhs.image == rhs.image &&
+                lhs.video == rhs.video &&
+                lhs.audio == rhs.audio &&
+                lhs.location == rhs.location &&
+                lhs.sticker == rhs.sticker
+        )
+    }
 
     public init(transcript: Transcript) {
         self.init()
