@@ -67,8 +67,11 @@ where
         room.update(block)
     }
 
-    public class func viewController(userID: String) -> UINavigationController {
-        let viewController: ThreadViewController = ThreadViewController(userID: userID)//RoomViewController(userID: userID)
-        return UINavigationController(rootViewController: viewController)
+    public class func threadsController(userID: String) -> ThreadViewController {
+        return ThreadViewController(userID: userID)
+    }
+
+    public class func messagesController(roomID: String, userID: String) -> MessageViewController {
+        return MessageViewController(roomID: roomID, userID: userID)
     }
 }
