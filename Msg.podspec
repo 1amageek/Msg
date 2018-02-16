@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "Msg"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "Msg can build Chat by linking Firestore and Realm."
   s.description  = <<-DESC
 Since Firestore takes time even when reading from the local, we decided to use Realm locally.
