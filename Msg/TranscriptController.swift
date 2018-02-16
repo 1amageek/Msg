@@ -36,7 +36,6 @@ public extension Box {
             let roomID: String = self.roomID
 
             self.viewers.on { [weak self] (_, change) in
-
                 switch change {
                 case .initial:
                     if let users: [User] = self?.viewers.documents {
@@ -59,23 +58,51 @@ public extension Box {
                 switch change {
                 case .initial:
                     if let transcripts: [Transcript] = self?.dataSource.documents {
-                        Message.saveIfNeeded(transcripts: transcripts)
+                        Message.saveIfNeeded(transcripts: transcripts, isRead: true)
                     }
                 case .update(deletions: _, insertions: let insertions, modifications: let modifications):
                     if !insertions.isEmpty {
                         let transcripts: [Transcript] = insertions.flatMap { return self?.dataSource[$0] }
-                        Message.saveIfNeeded(transcripts: transcripts)
-                        if let last: Transcript = transcripts.last {
-                            Thread.update(id: last.room.id!, messageID: last.id)
-                        }
+                        Message.saveIfNeeded(transcripts: transcripts, isRead: true)
                     }
                     if !modifications.isEmpty {
                         let transcripts: [Transcript] = modifications.flatMap { return self?.dataSource[$0] }
-                        Message.saveIfNeeded(transcripts: transcripts)
+                        Message.saveIfNeeded(transcripts: transcripts, isRead: true)
                     }
                 case .error(let error): print(error)
                 }
             }.listen()
+        }
+
+        private func _saveIfNeeded(transcripts: [Transcript]) {
+            let queue: DispatchQueue = DispatchQueue(label: "message.update.queue")
+            queue.async {
+                let realm: Realm = try! Realm()
+                try! realm.write {
+                    var updateMessages: [Message] = []
+                    var insertMessages: [Message] = []
+                    for (_ ,transcript) in Set(transcripts).enumerated() {
+                        if let _message = realm.objects(Message.self).filter("id == %@", transcript.id).first {
+                            if _message.updatedAt < transcript.updatedAt {
+                                var message: Message = Message(transcript: transcript)
+                                message.isRead = true
+                                updateMessages.append(message)
+                            }
+                        } else {
+                            var message: Message = Message(transcript: transcript)
+                            message.isRead = true
+                            insertMessages.append(message)
+                        }
+                    }
+
+                    if !updateMessages.isEmpty {
+                        realm.add(updateMessages, update: true)
+                    }
+                    if !insertMessages.isEmpty {
+                        realm.add(insertMessages, update: true)
+                    }
+                }
+            }
         }
 
         public func next() {

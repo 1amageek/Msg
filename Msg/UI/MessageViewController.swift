@@ -202,6 +202,32 @@ extension Box {
             let room: Room = Room(id: self.roomID, value: [:])
             room.viewers.insert(User(id: self.userID, value: [:]))
             room.update(block)
+
+            // FIXME: Offline operation
+            let user: User = User(id: self.userID, value: [:])
+            user.messageMox.query.get { (snapshot, _) in
+                if let documents: [QueryDocumentSnapshot] = snapshot?.documents {
+                    let batch: WriteBatch = Firestore.firestore().batch()
+                    documents.forEach { documentSnapshot in
+                        batch.deleteDocument(documentSnapshot.reference)
+                    }
+                    batch.commit()
+                }
+            }
+            let results: Results<Message> = self.realm.objects(Message.self).filter("roomID == %@ AND isRead == %@", self.roomID, false)
+            do {
+                try realm.write {
+                    var messages: [Message] = []
+                    results.forEach { (message) in
+                        var message: Message = message
+                        message.isRead = true
+                        messages.append(message)
+                    }
+                    realm.add(messages, update: true)
+                }
+            } catch let error {
+                print(error)
+            }
         }
 
         open func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
@@ -232,7 +258,7 @@ extension Box {
 
         private(set) lazy var dataSource: Results<Message> = {
             var results: Results<Message> = self.realm.objects(Message.self)
-                .filter("roomID == %@", self.roomID)
+                .filter("roomID == %@ AND isLoaded == %@", self.roomID, true)
                 .sorted(byKeyPath: "updatedAt", ascending: false)
             self.notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
                 guard let tableNode = self?.tableNode else { return }

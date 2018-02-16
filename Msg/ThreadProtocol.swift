@@ -22,9 +22,7 @@ public protocol ThreadProtocol where Self.Message: RealmSwift.Object, Self.Sende
     var updatedAt: Date { get set }
     var name: String? { get set }
     var thumbnailImageURL: String? { get set }
-    var lastMessage: Message? { get set }
     var viewers: List<Viewer> { get set }
-    var badgeCount: Int { get set }
 
     init(room: Room)
 
@@ -39,21 +37,6 @@ public extension ThreadProtocol where Self: RealmSwift.Object {
         self.createdAt = room.createdAt
         self.updatedAt = room.updatedAt
         self.name = room.name
-    }
-
-    public static func update(id: String, messageID: String) {
-        let queue: DispatchQueue = DispatchQueue(label: "thread.save.queue")
-        queue.async {
-            let realm: Realm = try! Realm()
-            if var thread = realm.objects(Self.self).filter("id == %@", id).first {
-                if let message = realm.objects(Self.Message.self).filter("id == %@", messageID).first {
-                    try! realm.write {
-                        thread.lastMessage = message
-                        realm.add(thread, update: true)
-                    }
-                }
-            }
-        }
     }
 
     public static func saveIfNeeded(rooms: [Room]) {
@@ -81,31 +64,6 @@ public extension ThreadProtocol where Self: RealmSwift.Object {
                 if !insertThreads.isEmpty {
                     realm.add(insertThreads, update: true)
                 }
-            }
-        }
-    }
-
-    public static func saveIfNeeded(room: Room, realm: Realm = try! Realm()) {
-        let thread: Self = Self(room: room)
-        if let _thread = realm.objects(Self.self).filter("id == %@", thread.id).first {
-            if _thread.updatedAt < thread.updatedAt {
-                try! realm.write {
-                    realm.add(thread, update: true)
-                }
-            }
-        } else {
-            try! realm.write {
-                realm.add(thread, update: true)
-            }
-        }
-    }
-
-    public static func update(id: String, badgeCount: Int) {
-        let realm: Realm = try! Realm()
-        try! realm.write {
-            if var thread = realm.objects(Self.self).filter("id == %@", id).first {
-                thread.badgeCount = badgeCount
-                realm.add(thread, update: true)
             }
         }
     }

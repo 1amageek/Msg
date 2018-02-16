@@ -17,6 +17,10 @@ class Message: RealmSwift.Object, MessageProtocol {
 
     typealias Sender = Sample.Sender
 
+    dynamic var isLoaded: Bool = false
+
+    dynamic var isRead: Bool = false
+
     dynamic var id: String = ""
 
     dynamic var roomID: String = ""
@@ -30,6 +34,16 @@ class Message: RealmSwift.Object, MessageProtocol {
     dynamic var sender: Sender?
 
     dynamic var text: String?
+
+    dynamic var image: String?
+
+    dynamic var video: String?
+
+    dynamic var audio: String?
+
+    dynamic var location: GeoPoint?
+
+    dynamic var sticker: String?
 
     public override static func primaryKey() -> String? {
         return "id"

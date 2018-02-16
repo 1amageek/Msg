@@ -31,9 +31,9 @@ class Thread: RealmSwift.Object, ThreadProtocol {
 
     dynamic var thumbnailImageURL: String?
 
-    dynamic var lastMessage: Message?
-
     dynamic var viewers: List<Viewer> = .init()
+
+    dynamic var messages: List<Message> = .init()
 
     dynamic var badgeCount: Int = 0
     

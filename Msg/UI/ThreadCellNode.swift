@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 import AsyncDisplayKit
 
 extension Box {
@@ -51,20 +52,37 @@ extension Box {
                                                              attributes: [.foregroundColor: UIColor.darkText,
                                                                           .font: UIFont.boldSystemFont(ofSize: 16)])
             }
-            if let text: String = dependency.thread.lastMessage?.text {
-                textNode.attributedText = NSAttributedString(string: text,
-                                                             attributes: [.foregroundColor: UIColor.darkText,
-                                                                          .font: UIFont.boldSystemFont(ofSize: 16)])
-            }
-            if let date: Date = dependency.thread.lastMessage?.updatedAt {
-                dateNode.attributedText = NSAttributedString(string: self.dateFormatter.string(from: date))
+
+            let realm = try! Realm()
+
+            //
+            do {
+                let results: Results<Message> = realm.objects(Message.self).filter("roomID == %@ AND isRead == %@", dependency.thread.id, false)
+                if results.count > 0 {
+                    hasBadge = true
+                    let badgeCount: String = (results.count > 999) ? "999+" : "\(results.count)"
+                    badgeCountNode.attributedText = NSAttributedString(string: badgeCount, attributes: [.foregroundColor: UIColor.white,
+                                                                                                        .font: UIFont.boldSystemFont(ofSize: 15)])
+                }
             }
 
-            if dependency.thread.badgeCount > 0 {
-                hasBadge = true
-                let badgeCount: String = (dependency.thread.badgeCount > 999) ? "999+" : "\(dependency.thread.badgeCount)"
-                badgeCountNode.attributedText = NSAttributedString(string: badgeCount, attributes: [.foregroundColor: UIColor.white,
-                                                                                                    .font: UIFont.boldSystemFont(ofSize: 15)])
+            // First messsage
+            do {
+                let results: Results<Message> = realm.objects(Message.self)
+                    .filter("roomID == %@", dependency.thread.id)
+                    .sorted(byKeyPath: "updatedAt", ascending: false)
+                if let message: Message = results.first {
+
+                    // Text
+                    if let text: String = message.text {
+                        textNode.attributedText = NSAttributedString(string: text,
+                                                                     attributes: [.foregroundColor: UIColor.darkText,
+                                                                                  .font: UIFont.boldSystemFont(ofSize: 16)])
+                    }
+                    // Date
+                    let date: Date = message.updatedAt
+                    dateNode.attributedText = NSAttributedString(string: self.dateFormatter.string(from: date))
+                }
             }
 
             thumbnailImageNode.willDisplayNodeContentWithRenderingContext = { context, drawParameters in

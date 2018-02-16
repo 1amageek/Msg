@@ -90,6 +90,12 @@ public protocol TranscriptType {
 
     var user: Reference<User> { get }
     var room: Reference<Room> { get }
+
+    static var shouldBeReplicated: Bool { get }
+}
+
+public extension TranscriptType {
+    static var shouldBeReplicated: Bool { return true }
 }
 
 public protocol HasContent {
@@ -98,7 +104,25 @@ public protocol HasContent {
     var image: File? { get set }
     var video: File? { get set }
     var audio: File? { get set }
-    var location: GeoPoint? { get set }
+    var location: FirebaseFirestore.GeoPoint? { get set }
     var sticker: String? { get set }
     var imageMap: [File] { get set }
+
+    var hasContents: Bool { get }
+}
+
+public extension HasContent {
+    var hasContents: Bool {
+        if
+            self.text != nil ||
+            self.image != nil ||
+            self.video != nil ||
+            self.audio != nil ||
+            self.location != nil ||
+            self.sticker != nil ||
+            !self.imageMap.isEmpty {
+            return true
+        }
+        return false
+    }
 }

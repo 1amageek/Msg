@@ -10,6 +10,20 @@ import FirebaseFirestore
 import Pring
 import RealmSwift
 
+@objcMembers
+public class GeoPoint: RealmSwift.Object {
+
+    public dynamic var latitude: Double = 0
+
+    public dynamic var longitude: Double = 0
+
+    public convenience init(_ location: FirebaseFirestore.GeoPoint) {
+        self.init()
+        self.latitude = location.latitude
+        self.longitude = location.longitude
+    }
+}
+
 public protocol MessageProtocol where Sender: RealmSwift.Object {
 
     associatedtype Transcript: TranscriptDocument
@@ -18,10 +32,21 @@ public protocol MessageProtocol where Sender: RealmSwift.Object {
     var id: String { get set }
     var roomID: String { get set }
     var userID: String { get set }
+    var sender: Sender? { get set }
     var createdAt: Date { get set }
     var updatedAt: Date { get set }
+
+    // Contents
     var text: String? { get set }
-    var sender: Sender? { get set }
+    var image: String? { get set }
+    var video: String? { get set }
+    var audio: String? { get set }
+    var location: GeoPoint? { get set }
+    var sticker: String? { get set }
+//    var imageMap: [String] { get set }
+
+    var isLoaded: Bool { get set }
+    var isRead: Bool { get set }
 
     init(transcript: Transcript)
 
@@ -33,30 +58,47 @@ public extension MessageProtocol where Self: RealmSwift.Object {
     public init(transcript: Transcript) {
         self.init()
         self.id = transcript.id
-        self.roomID = transcript.room.id!
-        self.userID = transcript.user.id!
+
+        // RoomID
+        if let roomID: String = transcript.room.id {
+            self.roomID = roomID
+        }
+
+        // UserID
+        if let userID: String = transcript.user.id {
+            self.userID = userID
+        }
+
         self.createdAt = transcript.createdAt
         self.updatedAt = transcript.updatedAt
         self.text = transcript.text
-    }
-
-    public static func update(id: String, senderID: String) {
-        let queue: DispatchQueue = DispatchQueue(label: "message.save.queue")
-        queue.async {
-            let realm: Realm = try! Realm()
-            try! realm.write {
-                if var message = realm.objects(Self.self).filter("id == %@", id).first {
-                    if let sender = realm.objects(Self.Sender.self).filter("id == %@", senderID).first {
-
-                        message.sender = sender
-                        realm.add(message, update: true)
-                    }
-                }
-            }
+        self.image = transcript.image?.downloadURL?.absoluteString
+        self.video = transcript.video?.downloadURL?.absoluteString
+        self.audio = transcript.audio?.downloadURL?.absoluteString
+        if let location: FirebaseFirestore.GeoPoint = transcript.location {
+            self.location = GeoPoint(location)
         }
+        self.sticker = transcript.sticker
+//        self.imageMap = transcript.imageMap
+        self.isLoaded = transcript.hasContents
     }
 
-    public static func saveIfNeeded(transcripts: [Transcript]) {
+//    public static func update(id: String, senderID: String) {
+//        let queue: DispatchQueue = DispatchQueue(label: "message.save.queue")
+//        queue.async {
+//            let realm: Realm = try! Realm()
+//            try! realm.write {
+//                if var message = realm.objects(Self.self).filter("id == %@", id).first {
+//                    if let sender = realm.objects(Self.Sender.self).filter("id == %@", senderID).first {
+//                        message.sender = sender
+//                        realm.add(message, update: true)
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    public static func saveIfNeeded(transcripts: [Transcript], isRead: Bool = false) {
         let queue: DispatchQueue = DispatchQueue(label: "message.save.queue")
         queue.async {
             let realm: Realm = try! Realm()
@@ -66,11 +108,13 @@ public extension MessageProtocol where Self: RealmSwift.Object {
                 for (_ ,transcript) in Set(transcripts).enumerated() {
                     if let _message = realm.objects(Self.self).filter("id == %@", transcript.id).first {
                         if _message.updatedAt < transcript.updatedAt {
-                            let message: Self = Self(transcript: transcript)
+                            var message: Self = Self(transcript: transcript)
+                            message.isRead = _message.isRead ? true : isRead
                             updateMessages.append(message)
                         }
                     } else {
-                        let message: Self = Self(transcript: transcript)
+                        var message: Self = Self(transcript: transcript)
+                        message.isRead = isRead
                         insertMessages.append(message)
                     }
                 }
@@ -81,24 +125,6 @@ public extension MessageProtocol where Self: RealmSwift.Object {
                 if !insertMessages.isEmpty {
                     realm.add(insertMessages, update: true)
                 }
-            }
-        }
-    }
-
-    public static func saveIfNeeded(transcript: Transcript, sender: Sender? = nil, realm: Realm = try! Realm()) {
-        var message: Self = Self(transcript: transcript)
-        if let sender: Sender = sender {
-            message.sender = sender
-        }
-        if let _message = realm.objects(Self.self).filter("id == %@", transcript.id).first {
-            if _message.updatedAt < message.updatedAt {
-                try! realm.write {
-                    realm.add(message, update: true)
-                }
-            }
-        } else {
-            try! realm.write {
-                realm.add(message, update: true)
             }
         }
     }

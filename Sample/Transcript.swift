@@ -17,6 +17,8 @@ class Transcript: Object, TranscriptProtocol {
 
     typealias Room = Sample.Room
 
+    override class var shouldBeReplicated: Bool { return true }
+
     var user: Reference<User> = .init()
 
     var room: Reference<Room>  = .init()
@@ -29,9 +31,10 @@ class Transcript: Object, TranscriptProtocol {
 
     dynamic var audio: File?
 
-    dynamic var location: GeoPoint?
+    dynamic var location: FirebaseFirestore.GeoPoint?
 
     dynamic var sticker: String?
 
     dynamic var imageMap: [File] = []
+
 }

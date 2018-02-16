@@ -14,7 +14,7 @@ import FirebaseFirestore
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var messageBox: Box<Sample.Thread, Sample.Sender, Sample.Message, Sample.Viewer>?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         NSSetUncaughtExceptionHandler { exception in
@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        user0.rooms.insert(room)
 //        user1.rooms.insert(room)
 //        room.save()
+        self.messageBox = Box(userID: "hoge")
+        self.messageBox?.listen()
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = Box<Sample.Thread, Sample.Sender, Sample.Message, Sample.Viewer>.viewController(userID: "hoge")
