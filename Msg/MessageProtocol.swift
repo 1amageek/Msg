@@ -24,6 +24,17 @@ public class GeoPoint: RealmSwift.Object {
     }
 }
 
+@objcMembers
+public class Medium: RealmSwift.Object {
+
+    public dynamic var url: String = ""
+
+    public convenience init(_ url: String) {
+        self.init()
+        self.url = url
+    }
+}
+
 public protocol MessageProtocol where Sender: RealmSwift.Object {
 
     associatedtype Transcript: TranscriptDocument
@@ -38,12 +49,12 @@ public protocol MessageProtocol where Sender: RealmSwift.Object {
 
     // Contents
     var text: String? { get set }
-    var image: String? { get set }
-    var video: String? { get set }
-    var audio: String? { get set }
+    var image: Medium? { get set }
+    var video: Medium? { get set }
+    var audio: Medium? { get set }
     var location: GeoPoint? { get set }
-    var sticker: String? { get set }
-//    var imageMap: [String] { get set }
+    var sticker: Medium? { get set }
+    var imageMap: List<Medium> { get set }
 
     var isLoaded: Bool { get set }
     var isRead: Bool { get set }
@@ -72,31 +83,41 @@ public extension MessageProtocol where Self: RealmSwift.Object {
         self.createdAt = transcript.createdAt
         self.updatedAt = transcript.updatedAt
         self.text = transcript.text
-        self.image = transcript.image?.downloadURL?.absoluteString
-        self.video = transcript.video?.downloadURL?.absoluteString
-        self.audio = transcript.audio?.downloadURL?.absoluteString
+        if let url: String = transcript.image?.downloadURL?.absoluteString {
+            self.image = Medium(url)
+        }
+        if let url: String = transcript.video?.downloadURL?.absoluteString {
+            self.video = Medium(url)
+        }
+        if let url: String = transcript.audio?.downloadURL?.absoluteString {
+            self.audio = Medium(url)
+        }
+        if let url: String = transcript.sticker {
+            self.sticker = Medium(url)
+        }
         if let location: FirebaseFirestore.GeoPoint = transcript.location {
             self.location = GeoPoint(location)
         }
-        self.sticker = transcript.sticker
-//        self.imageMap = transcript.imageMap
+        transcript.imageMap.flatMap { return $0.downloadURL?.absoluteString }.forEach { (url) in
+            self.imageMap.append(Medium(url))
+        }
         self.isLoaded = transcript.hasContents
     }
 
-//    public static func update(id: String, senderID: String) {
-//        let queue: DispatchQueue = DispatchQueue(label: "message.save.queue")
-//        queue.async {
-//            let realm: Realm = try! Realm()
-//            try! realm.write {
-//                if var message = realm.objects(Self.self).filter("id == %@", id).first {
-//                    if let sender = realm.objects(Self.Sender.self).filter("id == %@", senderID).first {
-//                        message.sender = sender
-//                        realm.add(message, update: true)
-//                    }
-//                }
-//            }
-//        }
-//    }
+    public static func update(id: String, senderID: String) {
+        let queue: DispatchQueue = DispatchQueue(label: "message.save.queue")
+        queue.async {
+            let realm: Realm = try! Realm()
+            try! realm.write {
+                if var message = realm.objects(Self.self).filter("id == %@", id).first {
+                    if let sender = realm.objects(Self.Sender.self).filter("id == %@", senderID).first {
+                        message.sender = sender
+                        realm.add(message, update: true)
+                    }
+                }
+            }
+        }
+    }
 
     public static func saveIfNeeded(transcripts: [Transcript], isRead: Bool = false) {
         let queue: DispatchQueue = DispatchQueue(label: "message.save.queue")

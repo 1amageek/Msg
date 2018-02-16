@@ -35,15 +35,17 @@ class Message: RealmSwift.Object, MessageProtocol {
 
     dynamic var text: String?
 
-    dynamic var image: String?
+    dynamic var image: Medium?
 
-    dynamic var video: String?
+    dynamic var video: Medium?
 
-    dynamic var audio: String?
+    dynamic var audio: Medium?
 
     dynamic var location: GeoPoint?
 
-    dynamic var sticker: String?
+    dynamic var sticker: Medium?
+
+    dynamic var imageMap: List<Medium> = .init()
 
     public override static func primaryKey() -> String? {
         return "id"

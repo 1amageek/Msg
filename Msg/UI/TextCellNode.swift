@@ -79,6 +79,36 @@ extension Box {
                 let bounds = context.boundingBoxOfClipPath
                 UIBezierPath(roundedRect: bounds, cornerRadius: self.thumbnailImageRadius).addClip()
             }
+
+            let realm = try! Realm()
+            let ref = ThreadSafeReference(to: dependency.message)
+            //
+            do {
+                if let sender: Sender = realm.objects(Sender.self).filter("id == %@", dependency.message.userID).last {
+                    guard let url: String = sender.profileImageURL else {
+                        return
+                    }
+                    thumbnailImageNode.url = URL(string: url)
+                } else {
+                    User.get(dependency.message.userID, block: { (user, error) in
+                        if let error = error {
+                            print(error)
+                            return
+                        }
+                        guard let user: User = user else {
+                            return
+                        }
+                        try! realm.write {
+                            let sender: Sender = Sender(user: user)
+                            guard var message: Message = realm.resolve(ref) else {
+                                fatalError()
+                            }
+                            message.sender = sender
+                            realm.add(message, update: true)
+                        }
+                    })
+                }
+            }
         }
 
         open override func didLoad() {
