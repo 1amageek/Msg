@@ -56,23 +56,24 @@ public protocol HasMembers {
 
 extension HasMembers where Self.User.Room == Self {
 
-    public static func create(users: [User], block: ((Error?) -> Void)?) {
-        let room: Self = Self()
-        users.forEach { (user) in
+    public static func create(name: String?, userIDs: [String], block: ((DocumentReference?, Error?) -> Void)? = nil) {
+        var room: Self = Self()
+        room.name = name
+        userIDs.forEach { (userID) in
+            let user: User = User(id: userID, value: [:])
             room.members.insert(user)
             user.rooms.insert(room)
         }
-        room.save { (_, error) in
-            block?(error)
-        }
+        room.save(block)
     }
 
-    public func join(user: User, block: ((Error?) -> Void)?) {
-        self.members.insert(user)
-        user.rooms.insert(self)
-        self.update { (error) in
-            block?(error)
+    public func join(userIDs: [String], block: ((Error?) -> Void)? = nil) {
+        userIDs.forEach { (userID) in
+            let user: User = User(id: userID, value: [:])
+            self.members.insert(user)
+            user.rooms.insert(self)
         }
+        self.update(block)
     }
 }
 

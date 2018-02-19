@@ -25,9 +25,9 @@ where
 
     let realm: Realm = try! Realm()
 
-    let dataSource: DataSource<Transcript>
+    public let dataSource: DataSource<Transcript>
 
-    init(userID: String) {
+    public init(userID: String) {
         let user: User = User(id: userID)
         self.dataSource = DataSource<Transcript>.Query(user.messageMox.reference)
             .order(by: "updatedAt")
@@ -57,14 +57,6 @@ where
             case .error(let error): print(error)
             }
         }).listen()
-    }
-
-    class func create(name: String?, userIDs: [String], block: ((Error?) -> Void)? = nil) {
-        var room: Room = Room()
-        room.name = name
-        let users: [User] = userIDs.flatMap { return User(id: $0, value: [:]) }
-        room.members.insert(users)
-        room.update(block)
     }
 
     public class func threadsController(userID: String) -> ThreadViewController {
