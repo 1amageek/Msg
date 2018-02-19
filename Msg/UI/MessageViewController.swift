@@ -252,11 +252,11 @@ extension Box {
 
         // MARK: - Realm
 
-        let realm = try! Realm()
+        public let realm = try! Realm()
 
         private(set) var notificationToken: NotificationToken?
 
-        private(set) lazy var dataSource: Results<Message> = {
+        public private(set) lazy var dataSource: Results<Message> = {
             var results: Results<Message> = self.realm.objects(Message.self)
                 .filter("roomID == %@ AND isLoaded == %@", self.roomID, true)
                 .sorted(byKeyPath: "updatedAt", ascending: false)

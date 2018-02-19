@@ -74,11 +74,11 @@ extension Box {
 
         // MARK: - Realm
 
-        let realm = try! Realm()
+        public let realm = try! Realm()
 
         private(set) var notificationToken: NotificationToken?
 
-        private(set) lazy var dataSource: Results<Thread> = {
+        public private(set) lazy var dataSource: Results<Thread> = {
             var results: Results<Thread> = self.realm.objects(Thread.self)
                 .sorted(byKeyPath: "updatedAt")
             self.notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in

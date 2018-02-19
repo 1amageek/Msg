@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.messageBox?.listen()
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = Box<Sample.Thread, Sample.Sender, Sample.Message, Sample.Viewer>.viewController(userID: "hoge")
+        self.window?.rootViewController = UINavigationController(rootViewController: Box<Sample.Thread, Sample.Sender, Sample.Message, Sample.Viewer>.threadsController(userID: "hoge"))
         self.window?.makeKeyAndVisible()
 
         return true
