@@ -160,19 +160,24 @@ extension Box {
             let user: User = User(id: self.userID, value: [:])
             transcript.text = text
             transcript.room.set(room)
-            transcript.user.set(user)
+            transcript.sender.set(user)
             room.transcripts.insert(transcript)
             room.update(block)
-            room.members.query.get { (snapshot, _) in
-                if let documents: [QueryDocumentSnapshot] = snapshot?.documents {
-                    let batch: WriteBatch = Firestore.firestore().batch()
-                    documents.forEach { documentSnapshot in
-                        let user: User = User(id: documentSnapshot.documentID, value: [:])
-                        user.messageMox.insert(transcript)
-                        user.pack(.update, batch: batch)
-                    }
-                    batch.commit()
+            Room.get(self.roomID) { (room, error) in
+                if let error: Error = error {
+                    print(error)
+                    return
                 }
+                guard let room: Room = room else {
+                    return
+                }
+                let batch: WriteBatch = Firestore.firestore().batch()
+                room.memberIDs.forEach { (id) in
+                    let user: User = User(id: id, value: [:])
+                    user.messageMox.insert(transcript)
+                    user.pack(.update, batch: batch)
+                }
+                batch.commit()
             }
         }
 
@@ -182,19 +187,24 @@ extension Box {
             let user: User = User(id: self.userID, value: [:])
             transcript.image = File(data: image, mimeType: mimeType)
             transcript.room.set(room)
-            transcript.user.set(user)
+            transcript.sender.set(user)
             room.transcripts.insert(transcript)
             room.update(block)
-            room.members.query.get { (snapshot, _) in
-                if let documents: [QueryDocumentSnapshot] = snapshot?.documents {
-                    let batch: WriteBatch = Firestore.firestore().batch()
-                    documents.forEach { documentSnapshot in
-                        let user: User = User(id: documentSnapshot.documentID, value: [:])
-                        user.messageMox.insert(transcript)
-                        user.pack(.update, batch: batch)
-                    }
-                    batch.commit()
+            Room.get(self.roomID) { (room, error) in
+                if let error: Error = error {
+                    print(error)
+                    return
                 }
+                guard let room: Room = room else {
+                    return
+                }
+                let batch: WriteBatch = Firestore.firestore().batch()
+                room.memberIDs.forEach { (id) in
+                    let user: User = User(id: id, value: [:])
+                    user.messageMox.insert(transcript)
+                    user.pack(.update, batch: batch)
+                }
+                batch.commit()
             }
         }
 
@@ -243,7 +253,7 @@ extension Box {
                     fatalError()
                 }
                 let dependency: TextCellNode.Dependency = TextCellNode.Dependency(message: message)
-                if message.userID == self.userID {
+                if message.senderID == self.userID {
                     return TextRightCellNode(dependency)
                 }
                 return TextLeftCellNode(dependency)

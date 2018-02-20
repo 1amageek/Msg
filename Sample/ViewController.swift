@@ -19,6 +19,8 @@ class ViewController: UIViewController {
             self.messageBox = Box(userID: ref!.documentID)
         }
 
+        
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 }

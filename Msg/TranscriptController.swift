@@ -23,7 +23,7 @@ public extension Box {
 
         public init(roomID: String, limit: Int = 30) {
             self.roomID = roomID
-            let room: Room = Room(id: roomID)
+            let room: Room = Room(id: roomID, value: [:])
             self.viewers = room.viewers.query.dataSource()
             self.dataSource = DataSource<Transcript>.Query(room.transcripts.reference)
                 .order(by: "createdAt")
@@ -109,17 +109,17 @@ public extension Box {
             self.dataSource.next()
         }
 
-        public func fetchMembers(_ block: ((Error?) -> Void)?) {
-            let room: Room = Room(id: roomID)
-            room.members
-                .query
-                .dataSource()
-                .onCompleted { [weak self] (_, users) in
-                    guard let realm: Realm = self?.realm else { return }
-                    if !users.isEmpty {
-                        Sender.saveIfNeeded(users: users, realm: realm)
-                    }
-                }.get()
-        }
+//        public func fetchMembers(_ block: ((Error?) -> Void)?) {
+//            let room: Room = Room(id: roomID)
+//            room.members
+//                .query
+//                .dataSource()
+//                .onCompleted { [weak self] (_, users) in
+//                    guard let realm: Realm = self?.realm else { return }
+//                    if !users.isEmpty {
+//                        Sender.saveIfNeeded(users: users, realm: realm)
+//                    }
+//                }.get()
+//        }
     }
 }

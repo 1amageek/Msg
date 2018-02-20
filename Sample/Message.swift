@@ -25,7 +25,7 @@ class Message: RealmSwift.Object, MessageProtocol {
 
     dynamic var roomID: String = ""
 
-    dynamic var userID: String = ""
+    dynamic var senderID: String = ""
 
     dynamic var createdAt: Date = Date()
 

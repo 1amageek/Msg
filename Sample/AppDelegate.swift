@@ -40,6 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        user0.rooms.insert(room)
 //        user1.rooms.insert(room)
 //        room.save()
+//        user0.save()
+//        user1.save()
+//
+//        Room.create(name: "ss", userIDs: ["hoge", "fuga"]) { ref, error in
+//            print(ref, error)
+//        }
         self.messageBox = Box(userID: "hoge")
         self.messageBox?.listen()
 

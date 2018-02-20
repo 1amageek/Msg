@@ -19,7 +19,7 @@ class Transcript: Object, TranscriptProtocol {
 
     override class var shouldBeReplicated: Bool { return true }
 
-    var user: Reference<User> = .init()
+    var sender: Reference<User> = .init()
 
     var room: Reference<Room>  = .init()
 

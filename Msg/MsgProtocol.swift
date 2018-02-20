@@ -50,6 +50,7 @@ public protocol RoomType {
 
 public protocol HasMembers {
     associatedtype User: UserDocument
+    var memberIDs: Set<String> { get set }
     var members: ReferenceCollection<User> { get }
     var viewers: ReferenceCollection<User> { get }
 }
@@ -59,6 +60,7 @@ extension HasMembers where Self.User.Room == Self {
     public static func create(name: String?, userIDs: [String], block: ((DocumentReference?, Error?) -> Void)? = nil) {
         var room: Self = Self()
         room.name = name
+        room.memberIDs = Set(userIDs)
         userIDs.forEach { (userID) in
             let user: User = User(id: userID, value: [:])
             room.members.insert(user)
@@ -67,14 +69,15 @@ extension HasMembers where Self.User.Room == Self {
         room.save(block)
     }
 
-    public func join(userIDs: [String], block: ((Error?) -> Void)? = nil) {
-        userIDs.forEach { (userID) in
-            let user: User = User(id: userID, value: [:])
-            self.members.insert(user)
-            user.rooms.insert(self)
-        }
-        self.update(block)
-    }
+//    public func join(userIDs: [String], block: ((Error?) -> Void)? = nil) {
+//        var room: Self = Self(id: self.id, value: [:])
+//        userIDs.forEach { (userID) in
+//            let user: User = User(id: userID, value: [:])
+//            room.members.insert(user)
+//            user.rooms.insert(self)
+//        }
+//        room.update(block)
+//    }
 }
 
 public protocol HasTranscripts {
@@ -89,7 +92,7 @@ public protocol TranscriptType {
     associatedtype User: MsgUser
     associatedtype Room: MsgRoom
 
-    var user: Reference<User> { get }
+    var sender: Reference<User> { get }
     var room: Reference<Room> { get }
 
     static var shouldBeReplicated: Bool { get }

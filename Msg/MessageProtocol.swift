@@ -46,7 +46,7 @@ public protocol MessageProtocol where Sender: RealmSwift.Object {
 
     var id: String { get set }
     var roomID: String { get set }
-    var userID: String { get set }
+    var senderID: String { get set }
     var sender: Sender? { get set }
     var createdAt: Date { get set }
     var updatedAt: Date { get set }
@@ -90,9 +90,9 @@ public extension MessageProtocol where Self: RealmSwift.Object {
             self.roomID = roomID
         }
 
-        // UserID
-        if let userID: String = transcript.user.id {
-            self.userID = userID
+        // SenderID
+        if let senderID: String = transcript.sender.id {
+            self.senderID = senderID
         }
 
         self.createdAt = transcript.createdAt

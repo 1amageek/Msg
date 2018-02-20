@@ -19,6 +19,8 @@ class Room: Object, RoomProtocol {
 
     var transcripts: NestedCollection<Transcript> = []
 
+    var memberIDs: Set<String> = []
+
     var members: ReferenceCollection<User> = []
 
     var viewers: ReferenceCollection<User> = []

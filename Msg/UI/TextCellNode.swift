@@ -84,13 +84,13 @@ extension Box {
             let ref = ThreadSafeReference(to: dependency.message)
             //
             do {
-                if let sender: Sender = realm.objects(Sender.self).filter("id == %@", dependency.message.userID).last {
+                if let sender: Sender = realm.objects(Sender.self).filter("id == %@", dependency.message.senderID).last {
                     guard let url: String = sender.profileImageURL else {
                         return
                     }
                     thumbnailImageNode.url = URL(string: url)
                 } else {
-                    User.get(dependency.message.userID, block: { (user, error) in
+                    User.get(dependency.message.senderID, block: { (user, error) in
                         if let error = error {
                             print(error)
                             return
