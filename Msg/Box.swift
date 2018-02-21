@@ -29,7 +29,7 @@ where
 
     public init(userID: String) {
         let user: User = User(id: userID)
-        self.dataSource = DataSource<Transcript>.Query(user.messageMox.reference)
+        self.dataSource = DataSource<Transcript>.Query(user.messageBox.reference)
             .order(by: "updatedAt")
             .dataSource()
     }

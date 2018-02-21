@@ -46,6 +46,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        Room.create(name: "ss", userIDs: ["hoge", "fuga"]) { ref, error in
 //            print(ref, error)
 //        }
+
+        Room
+            .where("memberIDs.hoge", isEqualTo: true)
+            .where("memberIDs.fuga", isEqualTo: true)
+            .get { (snapshot, error) in
+            print(snapshot?.documents, error)
+        }
+
         self.messageBox = Box(userID: "hoge")
         self.messageBox?.listen()
 

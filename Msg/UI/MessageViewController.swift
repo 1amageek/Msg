@@ -174,7 +174,7 @@ extension Box {
                 let batch: WriteBatch = Firestore.firestore().batch()
                 room.memberIDs.forEach { (id) in
                     let user: User = User(id: id, value: [:])
-                    user.messageMox.insert(transcript)
+                    user.messageBox.insert(transcript)
                     user.pack(.update, batch: batch)
                 }
                 batch.commit()
@@ -201,7 +201,7 @@ extension Box {
                 let batch: WriteBatch = Firestore.firestore().batch()
                 room.memberIDs.forEach { (id) in
                     let user: User = User(id: id, value: [:])
-                    user.messageMox.insert(transcript)
+                    user.messageBox.insert(transcript)
                     user.pack(.update, batch: batch)
                 }
                 batch.commit()
@@ -215,7 +215,7 @@ extension Box {
 
             // FIXME: Offline operation
             let user: User = User(id: self.userID, value: [:])
-            user.messageMox.query.get { (snapshot, _) in
+            user.messageBox.query.get { (snapshot, _) in
                 if let documents: [QueryDocumentSnapshot] = snapshot?.documents {
                     let batch: WriteBatch = Firestore.firestore().batch()
                     documents.forEach { documentSnapshot in

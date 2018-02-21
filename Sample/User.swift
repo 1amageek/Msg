@@ -23,5 +23,5 @@ class User: Object, UserProtocol {
 
     var rooms: ReferenceCollection<Room> = []
 
-    var messageMox: ReferenceCollection<Transcript> = []
+    var messageBox: ReferenceCollection<Transcript> = []
 }

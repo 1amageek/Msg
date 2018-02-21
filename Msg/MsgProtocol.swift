@@ -34,7 +34,7 @@ public protocol UserType {
 
 public protocol HasMessageBox {
     associatedtype Transcript: MsgTranscript
-    var messageMox: ReferenceCollection<Transcript> { get }
+    var messageBox: ReferenceCollection<Transcript> { get }
 }
 
 public protocol HasRooms {
